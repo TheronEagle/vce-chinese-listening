@@ -1,6 +1,7 @@
 import type { Exercise } from '../types';
 import { MORE_EXERCISES } from './more-exercises';
 import { EXERCISES_BATCH3 } from './exercises-batch3';
+import { EXERCISES_BATCH4 } from './exercises-batch4';
 
 export const SAMPLE_EXERCISES: Exercise[] = [
   // ============================================================
@@ -403,4 +404,5 @@ export const SAMPLE_EXERCISES: Exercise[] = [
   // More exercises from separate files
   ...MORE_EXERCISES,
   ...EXERCISES_BATCH3,
+  ...EXERCISES_BATCH4,
 ];
