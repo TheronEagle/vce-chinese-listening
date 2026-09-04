@@ -29,4 +29,6 @@ declare module 'lucide-react' {
   export const Clock: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
   export const Trash2: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
   export const Info: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const Filter: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const SlidersHorizontal: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
 }

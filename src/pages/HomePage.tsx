@@ -67,7 +67,7 @@ export function HomePage() {
             {recommendations.slice(0, 2).map((rec, idx) => (
               <Link
                 key={idx}
-                to={`/practice?mode=custom&topic=${rec.topic}&difficulty=${rec.difficulty}`}
+                to={`/practice?exercise=${SAMPLE_EXERCISES.find(e => e.script.topic === rec.topic)?.id ?? 'ex-001'}`}
                 className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-blue-200 transition-colors"
               >
                 <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ export function HomePage() {
           <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
             📚 练习库 Exercise Library
           </h3>
-          <Link to="/practice?mode=custom" className="text-sm text-blue-600 font-medium">
+          <Link to="/practice/custom" className="text-sm text-blue-600 font-medium">
             查看全部 View All →
           </Link>
         </div>

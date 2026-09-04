@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { PracticePage } from './pages/PracticePage';
 import { StatsPage } from './pages/StatsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { CustomPracticePage } from './pages/CustomPracticePage';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/practice" element={<PracticePage />} />
           <Route path="/stats" element={<StatsPage />} />
+          <Route path="/practice/custom" element={<CustomPracticePage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </Layout>
