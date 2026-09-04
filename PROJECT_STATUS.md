@@ -27,7 +27,9 @@ Phase 1 — MVP Core (mostly complete)
 - [x] `src/data/topics.ts` — 18 VCE categories with Chinese names, emojis, helper functions
 - [x] `src/data/sample-exercises.ts` — 4 exercises (future aspirations, festivals, study abroad, Chinese culture)
 - [x] `src/data/more-exercises.ts` — 3 more exercises (food, employment, lifestyle)
-- [x] Total: **7 exercises** with full Chinese dialogues, pinyin, English translations, vocabulary, structured marking points
+- [x] `src/data/exercises-batch3.ts` — 3 more exercises (family, travel, contemporary China)
+- [x] `src/data/exercises-batch4.ts` — 3 more exercises (school, myths/legends, leisure)
+- [x] Total: **13 exercises** with full Chinese dialogues, pinyin, English translations, vocabulary, structured marking points
 
 ### State Management
 - [x] `src/stores/practiceStore.ts` — Current session state (exercise, answers, audio, playback)
@@ -124,6 +126,11 @@ Phase 1 — MVP Core (mostly complete)
 
 ## GIT HISTORY:
 ```
+e02cb34 feat: add 3 more exercises (school, myths/legends, leisure)
+e978197 chore: gitignore workflow dir until PAT has workflow scope
+a0448c5 chore: remove workflow file (needs workflow scope)
+1941310 feat: add 3 more exercises (family, travel, contemporary China)
+4a3bf5c docs: add Cloudflare Pages deployment, comprehensive continuity docs
 ce79f40 feat: add custom practice page with topic/difficulty filters
 70f91a4 docs: update project status, add 3 exercises, verify dev server
 5d0de92 feat: add 3 more exercises (food, employment, lifestyle)
@@ -141,4 +148,4 @@ af2fb65 feat: initial VCE Chinese listening practice app
 8. Commit and push regularly
 
 ## LAST UPDATED:
-2026-09-04T19:40:00+08:00
+2026-09-04T19:55:00+08:00

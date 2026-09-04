@@ -15,8 +15,14 @@
 - [x] GitHub repo and initial push
 
 ## 🔥 Priority 1 — Content
-- [ ] Add exercises for: family, school, travel, leisure, study, chinese_society, chinese_philosophies, myths_legends, contemporary_china, social_economic
-- [ ] Add 5-mark and 6-mark complex questions
+- [x] Exercise8: Family
+- [x] Exercise9: Travel
+- [x] Exercise10: Contemporary China
+- [x] Exercise 11: School
+- [x] Exercise 12: Myths & Legends
+- [x] Exercise 13: Leisure
+- [ ] Add exercises for: study, chinese_society, chinese_philosophies, social_economic
+- [ ] Add more 5-mark and 6-mark complex questions
 - [ ] Add more comparison questions
 
 ## 🎯 Priority 2 — Features
