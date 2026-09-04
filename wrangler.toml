@@ -1,5 +1,6 @@
 name = "vce-chinese-listening"
 compatibility_date = "2024-01-01"
 
-[pages]
-build_output_dir = "dist"
+[assets]
+directory = "./dist"
+single_page_application = true
