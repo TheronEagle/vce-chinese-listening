@@ -26,8 +26,9 @@ Phase 1 — MVP Core (in progress)
 - ✅ Vite production build succeeds
 
 ## CURRENTLY WORKING ON:
-- GitHub repo creation and initial push
-- Need GitHub PAT from user
+- Waiting for GitHub PAT to create repo and push
+- Added 3 more exercises (food, employment, lifestyle)
+- Dev server verified working
 
 ## NEXT TASK:
 1. Create GitHub repo and push initial code
@@ -68,7 +69,8 @@ Phase 1 — MVP Core (in progress)
 
 ## TEST STATUS:
 - TypeScript: Clean build ✅
-- Manual: Not yet tested in browser
+- Vite build: ✅
+- Dev server: ✅ verified running
 
 ## LAST UPDATED:
-2026-09-04T19:25:00+08:00
+2026-09-04T19:35:00+08:00
