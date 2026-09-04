@@ -1,4 +1,5 @@
-import { Exercise, QuestionType } from '../types';
+import type { Exercise } from '../types';
+import { MORE_EXERCISES } from './more-exercises';
 
 export const SAMPLE_EXERCISES: Exercise[] = [
   // ============================================================
@@ -397,4 +398,7 @@ export const SAMPLE_EXERCISES: Exercise[] = [
       },
     ],
   },
+
+  // More exercises from separate file
+  ...MORE_EXERCISES,
 ];
