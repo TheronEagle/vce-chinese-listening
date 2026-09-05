@@ -28,13 +28,14 @@ LISTEN → TAKE NOTES → ANSWER → GET MARKED → REVIEW TRANSCRIPT → IDENTI
 ---
 
 ## PRODUCTION URL (LIVE ✅)
-- **https://vce-chineselistening.ruttkay-gpt.workers.dev**
+- **https://vce-chineselistening.theroneagle.workers.dev** *(subdomain changed from the
+  earlier `ruttkay-gpt` — Cloudflare Workers subdomain)*
 - Hosted on **Cloudflare Pages** (auto-deploy from GitHub `main`)
-- Built assets currently serving: `index-CsdtOt8t.js`, `index-Dw4D9Sxx.css`
 - Audio assets served at `/audio/<exerciseId>/<line-XX>.mp3` and `/audio/<exerciseId>/full.mp3`
 
-⚠️ **Known production issue** (see "CRITICAL BUGS"): exercises with broken audio return
-404 on production, silently degrading to Web Speech API for affected lines.
+⚠️ **Previously broken audio URLs (BUG-001) are now fixed** — verified live, all 22
+previously-404 URLs (ex-002/003/005/006/007/008/009/010/011/012/013) return HTTP 200.
+See "FIXED BUGS" below.
 
 ---
 
@@ -120,53 +121,24 @@ LISTEN → TAKE NOTES → ANSWER → GET MARKED → REVIEW TRANSCRIPT → IDENTI
 
 ## CRITICAL BUGS (P0)
 
-### 🔴 BUG-001 — Audio/dialogue alignment broken for 12 of 18 exercises
+### ✅ FIXED — BUG-001 — Audio/dialogue alignment broken for 12 of 18 exercises
+**Status:** RESOLVED in commit `11c884f fix: repair exercise audio alignment`. Verified
+locally (`verify-audio.ts` reports `18/18 aligned`) and on production (all 22 previously-404
+URLs now return HTTP 200, including `/audio/ex-008/line-08.mp3`).
 
-**Symptom:** Some audio files are missing or contain a completely different conversation than
-what the questions ask about. Students see one topic, hear another.
+**Fix approach:**
+- Rewrote `scripts/generate-audio.py` to make `src/data/*.ts` the single source of truth.
+  No more parallel Python dialogue dictionary.
+- Phase 1: generated 14 missing per-line files (line-08/line-09 for ex-002/003/005/006/007/
+  008/009/010) — preserves existing aligned audio.
+- Phase 2: regenerated all audio for ex-004 / ex-011 / ex-012 (which had audio for the wrong
+  conversation).
+- Phase 3: deleted 2 orphaned MP3s for ex-013 (line-06, line-07 — data was trimmed to 6 lines
+  but audio still had 8). Regenerated full.mp3 for the current 6-line dialogue.
 
-**Verified mismatches (data lines vs audio lines):**
-
-| Exercise | Topic | Data lines | Audio files | Audio content | Status |
-|----------|-------|-----------:|------------:|---------------|--------|
-| ex-001 | Future Aspirations | 9 | 9 | matches | ✅ OK |
-| ex-002 | Festivals (中秋) | 9 | 8 | same topic, missing line-08 | ⚠️ Missing |
-| ex-003 | Study Abroad | 10 | 8 | same topic, missing line-08/09 | ⚠️ Missing |
-| **ex-004** | **Chinese Culture (中医)** | 8 | 8 | **WRONG content** — audio is about 春节, data is about 中医 | 🔴 Content mismatch |
-| ex-005 | Food | 10 | 8 | same topic, missing line-08/09 | ⚠️ Missing |
-| ex-006 | Employment | 10 | 8 | same topic, missing line-08/09 | ⚠️ Missing |
-| ex-007 | Lifestyle | 9 | 8 | same topic, missing line-08 | ⚠️ Missing |
-| ex-008 | Travel | 10 | 8 | same topic, missing line-08/09 | ⚠️ Missing |
-| ex-009 | Contemporary China | 10 | 8 | same topic, missing line-08/09 | ⚠️ Missing |
-| ex-010 | Myths & Legends (龙) | 10 | 8 | same topic, missing line-08/09 | ⚠️ Missing |
-| **ex-011** | **School** | 8 | 8 | **WRONG content** — audio is about 周末休闲, data is about 学校 | 🔴 Content mismatch |
-| **ex-012** | **Festivals** | 8 | 8 | **WRONG content** — audio is about 选大学, data is about 中秋节 | 🔴 Content mismatch |
-| ex-013 | Leisure | 6 | 8 | same topic, lines 6–7 orphaned, line count mismatch | ⚠️ Content/dim mismatch |
-| ex-014 | Career/Arts | 8 | 8 | matches | ✅ OK |
-| ex-015 | School/Homework | 8 | 8 | matches | ✅ OK |
-| ex-016 | Gap Year | 8 | 8 | matches | ✅ OK |
-| ex-017 | Part-time Work | 8 | 8 | matches | ✅ OK |
-| ex-018 | Study Abroad / Australia | 8 | 8 | matches | ✅ OK |
-
-**Confirmed live on production:** `curl -I https://vce-chineselistening.ruttkay-gpt.workers.dev/audio/ex-008/line-08.mp3` → **HTTP 404**.
-
-**Why it happened:** Audio was generated from earlier dialogue drafts in `scripts/generate-audio.py`.
-The exercise data in `src/data/*.ts` was subsequently rewritten/expanded without regenerating audio.
-Specifically:
-- ex-013 had dialogue trimmed from 8 → 6 lines (audio orphaned, never updated)
-- ex-004 / ex-011 / ex-012 had their dialogue completely replaced (audio is for the OLD dialogue)
-- ex-002, ex-003, ex-005–ex-010 had 2 extra dialogue lines added (line-08 and/or line-09 missing)
-
-**Fix path (P0 — must be next task):**
-1. Pick the source-of-truth dialogue for each broken exercise (recommendation: keep the data
-   TS, since that's what students see + answer questions about).
-2. Regenerate the missing audio files using `scripts/generate-audio.py` (edit it to include
-   updated dialogue, then run `python3 scripts/generate-audio.py` with `edge_tts` installed).
-3. For ex-004 / ex-011 / ex-012 — regenerate ALL audio from current TS dialogue.
-4. For ex-013 — either re-expand the dialogue to 8 lines OR trim the audio files to line-00…line-05.
-5. Verify on production: `curl -I https://...workers.dev/audio/ex-008/line-08.mp3` → 200.
-6. Add a CI assertion (e.g., a small `scripts/verify-audio.ts` script) that asserts every
-   dialogue line index N has a corresponding `public/audio/<exerciseId>/line-NN.mp3`.
+**New tooling:**
+- `scripts/_audio_lib.py` — shared library (parser, generator).
+- `scripts/verify-audio.ts` — already existed, now serves as regression catcher.
 
 ### 🟡 BUG-002 — `hasAudioFile()` returns true unconditionally
 `src/services/audio.ts:144-147`:
@@ -220,35 +192,42 @@ to the corresponding type. **Stats shown are misleading.**
 ---
 
 ## CURRENT TASK
-Takeover complete. Documentation updated, audit findings recorded. **Next session should fix BUG-001.**
+BUG-001 fixed and verified live on production. BUG-003 (question-type accuracy) is the next
+P0 task but **must wait for explicit instruction** — the spec said "Do not proceed to BUG-003
+until BUG-001 is completely verified locally and in production."
 
 ---
 
 ## NEXT TASKS (prioritised)
 
-### Priority 0 — Critical (fix in next session)
-1. **BUG-001: Audio/data alignment** — regenerate missing/incorrect audio for ex-002/003/004/005/006/007/008/009/010/011/012/013. See detailed fix path above.
-2. **BUG-003: Question-type accuracy bug** — fix `recordSession` to use per-answer marks instead of session totals.
+### Priority 0 — Critical
+1. **BUG-003: Question-type accuracy bug** — fix `recordSession` to use per-answer marks instead
+   of session totals. Awaiting go-ahead from user (BUG-001 verification gate).
 
 ### Priority 1 — Product correctness
-3. **BUG-002: `hasAudioFile()` should actually probe audio** — wire it to a HEAD fetch or read the manifest.
-4. Add **audio alignment verifier** script (`scripts/verify-audio.ts`) to CI / pre-commit.
-5. Make `generate-audio.py` import from `src/data/*.ts` so audio always matches data (single source of truth).
-6. Confirm `notes` saved per session actually persist with attempt metadata (currently keyed only by exerciseId; if student retries, notes are lost on completion? — re-read `ListeningNotes.tsx`).
+2. **BUG-002: `hasAudioFile()` should actually probe audio** — wire it to a HEAD fetch or read
+   the manifest.
+3. Add **audio alignment verifier** to CI / pre-commit (`scripts/verify-audio.ts` already exists;
+   wire it into a `pre-commit` hook or GitHub Action).
+4. Confirm `notes` saved per session actually persist with attempt metadata (currently keyed only
+   by exerciseId; if student retries, notes are lost on completion? — re-read `ListeningNotes.tsx`).
 
 ### Priority 2 — Content
-7. Add 5-mark and 6-mark complex questions (already typed in `QuestionType` enum but rarely used).
-8. Add comparison questions.
-9. Add exercises for missing categories: `chinese_society`, `chinese_philosophies`, `social_economic`, `study`, more `family`.
+5. Add 5-mark and 6-mark complex questions (already typed in `QuestionType` enum but rarely used).
+6. Add comparison questions.
+7. Add exercises for missing categories: `chinese_society`, `chinese_philosophies`,
+   `social_economic`, `study`, more `family`.
 
 ### Priority 3 — Quality
-10. Improve `aiMarking.ts` semantic matching — currently EnglishMeaning branch returns `false` always (line 38).
-11. Mobile UX pass (PracticePage is dense on small screens).
-12. Lazy-load pages (code splitting).
+8. Improve `aiMarking.ts` semantic matching — currently EnglishMeaning branch returns `false`
+   always (line 38).
+9. Mobile UX pass (PracticePage is dense on small screens).
+10. Lazy-load pages (code splitting).
 
 ### Priority 4 — Deployment
-13. Verify Cloudflare Pages auto-deploy from `main` is working.
-14. Custom domain (optional).
+11. Verify Cloudflare Pages auto-deploy from `main` continues to work (works as of 2026-09-05,
+    including the new `theroneagle.workers.dev` subdomain).
+12. Custom domain (optional).
 
 ---
 
@@ -287,28 +266,29 @@ Takeover complete. Documentation updated, audit findings recorded. **Next sessio
 ## EXISTING AUDIO INVENTORY
 
 ```
-public/audio/
-├── ex-001/  (9 lines, full.mp3) — Future Aspirations — ✅ aligned
-├── ex-002/  (8 lines, full.mp3) — Festivals (中秋) — ⚠️ missing line-08
-├── ex-003/  (8 lines, full.mp3) — Study Abroad — ⚠️ missing line-08, line-09
-├── ex-004/  (8 lines, full.mp3) — Chinese Culture — 🔴 WRONG content (春节 vs 中医)
-├── ex-005/  (8 lines, full.mp3) — Food — ⚠️ missing line-08, line-09
-├── ex-006/  (8 lines, full.mp3) — Employment — ⚠️ missing line-08, line-09
-├── ex-007/  (8 lines, full.mp3) — Lifestyle — ⚠️ missing line-08
-├── ex-008/  (8 lines, full.mp3) — Travel — ⚠️ missing line-08, line-09
-├── ex-009/  (8 lines, full.mp3) — Contemporary China — ⚠️ missing line-08, line-09
-├── ex-010/  (8 lines, full.mp3) — Myths & Legends — ⚠️ missing line-08, line-09
-├── ex-011/  (8 lines, full.mp3) — School — 🔴 WRONG content (周末 vs 学校)
-├── ex-012/  (8 lines, full.mp3) — Festivals — 🔴 WRONG content (选大学 vs 中秋节)
-├── ex-013/  (8 lines, full.mp3) — Leisure — ⚠️ content trimmed (6 lines), 2 audio orphaned
-├── ex-014/  (8 lines, full.mp3) — Career/Arts — ✅ aligned
-├── ex-015/  (8 lines, full.mp3) — School/Homework — ✅ aligned
-├── ex-016/  (8 lines, full.mp3) — Gap Year — ✅ aligned
-├── ex-017/  (8 lines, full.mp3) — Part-time Work — ✅ aligned
-└── ex-018/  (8 lines, full.mp3) — Study Abroad/Australia — ✅ aligned
+public/audio/  (175 MP3 files, 9.2 MB committed to git — verified aligned 2026-09-05)
+├── ex-001/  (9 lines + full) — Future Aspirations
+├── ex-002/  (9 lines + full) — Festivals (中秋)
+├── ex-003/  (10 lines + full) — Study Abroad
+├── ex-004/  (8 lines + full) — Chinese Culture (中医)
+├── ex-005/  (10 lines + full) — Food
+├── ex-006/  (10 lines + full) — Employment
+├── ex-007/  (9 lines + full) — Lifestyle
+├── ex-008/  (10 lines + full) — Travel
+├── ex-009/  (10 lines + full) — Contemporary China
+├── ex-010/  (10 lines + full) — Myths & Legends (龙)
+├── ex-011/  (8 lines + full) — School
+├── ex-012/  (8 lines + full) — Festivals (嫦娥)
+├── ex-013/  (6 lines + full) — Leisure (周末做什么)
+├── ex-014/  (8 lines + full) — Career/Arts
+├── ex-015/  (8 lines + full) — School/Homework
+├── ex-016/  (8 lines + full) — Gap Year
+├── ex-017/  (8 lines + full) — Part-time Work
+└── ex-018/  (8 lines + full) — Study Abroad / Australia
 ```
 
-Total: 18 exercises × ~9 audio files = 163 MP3 files, 8.4 MB.
+All 18 exercises' data lines match their audio file count and content.
+Verified by `node --experimental-strip-types scripts/verify-audio.ts` → `18/18 aligned`.
 
 ---
 
