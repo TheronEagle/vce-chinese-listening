@@ -210,6 +210,7 @@ export const SAMPLE_EXERCISES: Exercise[] = [
         options: ['中秋节的习俗', '春节的传统活动和意义', '中国的饮食文化', '家庭聚餐的重要性'],
         correctOptionIndex: 1,
         modelAnswer: '春节的传统活动和意义',
+        sourceReference: '整段对话围绕春节的传统活动',
       },
     ],
   },
@@ -357,6 +358,7 @@ export const SAMPLE_EXERCISES: Exercise[] = [
         options: ['西医和中医的区别', '中医养生的方法和原则', '如何治疗常见疾病', '中国的饮食文化'],
         correctOptionIndex: 1,
         modelAnswer: '中医养生的方法和原则',
+        sourceReference: '整段对话围绕中医养生的饮食、运动、情绪三大方法',
       },
       {
         id: 'q-004-three',

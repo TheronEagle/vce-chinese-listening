@@ -11,7 +11,7 @@ Students complete Mandarin listening exercises, answer VCE-style questions in Ch
 AI-assisted semantic marking, review transcripts and vocabulary, and build adaptive practice
 based on weaknesses. No accounts, no payment, no backend.
 
-**Production URL:** https://vce-chineselistening.ruttkay-gpt.workers.dev
+**Production URL:** https://vce-chineselistening.theroneagle.workers.dev (Cloudflare Pages, auto-deploy from `main`)
 
 ---
 
@@ -40,24 +40,40 @@ npm run dev                 # vite dev server on http://localhost:5173
 npm run build               # tsc -b && vite build → dist/
 npm run preview             # serve dist/ locally
 npm run lint                # oxlint
+npm test                    # vitest run (must show 29/29 passing)
+npm run test:watch          # vitest in watch mode
 ```
 
 ---
 
 ## 4. Test Commands
 
-**There are no unit tests yet.** See TODO.md P2 for the backlog. When you add tests:
+```bash
+npm test                          # Vitest: 29 tests across QuestionCard,
+                                  #   PracticePage flow, statsStore,
+                                  #   audio verifier
+node --experimental-strip-types \
+  scripts/verify-audio.ts         # Audio alignment: must show 21/21
+```
+
+**All tests must pass before committing.** Audio verifier is critical —
+it prevents regression of the audio/data alignment bug (BUG-001) that
+caused 12 of 18 exercises to have broken content in the previous build.
+
+When you add tests:
 
 ```bash
-# Suggested: Vitest (not yet installed)
-npx vitest                  # run all tests
-npx vitest --coverage       # with coverage
+npx vitest run path/to/test.test.tsx     # run a specific file
+npx vitest run --reporter=verbose        # see all assertions
 ```
 
 Before every commit, at minimum:
 
 ```bash
 npm run build               # MUST pass — catches type errors
+npm test                    # MUST pass — 29 tests
+node --experimental-strip-types \
+  scripts/verify-audio.ts  # MUST show 21/21
 ```
 
 ---
@@ -85,7 +101,7 @@ The `wrangler.toml` is already configured (`assets.directory = "./dist"`,
 - ✅ **One commit per logical change.** Conventional prefixes: `feat:`, `fix:`, `chore:`,
   `docs:`, `refactor:`, `test:`.
 - ✅ **Run `npm run build` before committing.** Catches type errors.
-- ✅ **Verify on production** after pushing: `curl -I https://vce-chineselistening.ruttkay-gpt.workers.dev/...`
+- ✅ **Verify on production** after pushing: `curl -I https://vce-chineselistening.theroneagle.workers.dev/...`
 - ✅ **Update PROJECT_STATUS.md and TODO.md** at the end of every meaningful session.
 - ✅ **Add to CHANGELOG.md** for every user-facing change.
 - ✅ **Keep audio committed to git** unless repo size becomes a problem. Current size 8.4 MB is fine.
@@ -130,7 +146,7 @@ Audio is the most fragile asset. Follow these rules:
      python3 -c "import re,os; lines=len(re.findall(r'speaker:', open('src/data/...ts').read())); ..."
    done
    ```
-6. **Verify on production** after deploy: `curl -I https://vce-chineselistening.ruttkay-gpt.workers.dev/audio/<exerciseId>/line-NN.mp3`.
+6. **Verify on production** after deploy: `curl -I https://vce-chineselistening.theroneagle.workers.dev/audio/<exerciseId>/line-NN.mp3`.
 
 ---
 

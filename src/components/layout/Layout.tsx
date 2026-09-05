@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Headphones, BarChart3, Settings } from 'lucide-react';
-import { FeedbackButton } from '../components/common/FeedbackButton';
+import { FeedbackButton } from '../common/FeedbackButton';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (

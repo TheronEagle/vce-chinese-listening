@@ -83,7 +83,7 @@ export const EXERCISES_BATCH4: Exercise[] = [
       { id: 'q-012-si', type: 'specific_information', chineseQuestion: '月饼象征着什么？', englishInstruction: 'What do mooncakes symbolise?', marks: 1, markingPoints: [
         { id: 'mp-88', keyIdea: 'Reunion', englishMeaning: 'Mooncakes symbolise reunion', chineseKeywords: ['团圆'], marks: 1 },
       ], modelAnswer: '月饼象征着团圆。', sourceReference: '月饼象征着团圆' },
-      { id: 'q-012-main', type: 'main_idea', chineseQuestion: '这段对话的主题是什么？', englishInstruction: 'What is the main topic?', marks: 1, options: ['中秋节的食物', '嫦娥奔月的传说和中秋节的意义', '后羿的英雄故事', '中国的节日'], correctOptionIndex: 1, modelAnswer: '嫦娥奔月的传说和中秋节的意义' },
+      { id: 'q-012-main', type: 'main_idea', chineseQuestion: '这段对话的主题是什么？', englishInstruction: 'What is the main topic?', marks: 1, options: ['中秋节的食物', '嫦娥奔月的传说和中秋节的意义', '后羿的英雄故事', '中国的节日'], correctOptionIndex: 1, modelAnswer: '嫦娥奔月的传说和中秋节的意义', sourceReference: '整段对话围绕嫦娥奔月故事和中秋节联系' },
     ],
   },
 

@@ -13,7 +13,50 @@
 ---
 
 ## CURRENT PHASE
-Phase 2 — Takeover + Bug-Fix (audio/data alignment audit complete)
+Phase 3 — Beta readiness QA complete. Ready for 5–10 student testers.
+
+---
+
+## BETA READINESS STATUS
+
+| Concern | | Result |
+|----------|---|--------|
+| BUILD | | ✅ PASS (npm run build — 463 kB JS / 30 kB CSS) |
+| TESTS | | ✅ 29/29 (Vitest — QuestionCard, PracticePage flow, statsStore, audio verifier) |
+| AUDIO | | ✅ 21/21 aligned (verify-audio.ts) |
+| MOBILE | | ✅ responsive CSS verified; no horizontal scroll at 1280px |
+| ACCESSIBILITY | | ✅ aria-labels, role="radio", focus rings, keyboard nav |
+| FEEDBACK | | ✅ floating button, 7 categories, context-aware (exercise + question) |
+| CONTENT AUDIT | | ✅ no duplicates, all marks align, 4 missing sourceReferences fixed |
+| DEPLOYMENT | | ✅ Cloudflare Pages auto-deploys from `next` |
+
+---
+
+## SESSION 3 — BETA-READINESS QA (this takeover)
+
+### Fixed
+- **FeedbackButton** build error: was using `MessageSquareWarning` icon that wasn't exported by lucide-react@0.468 → switched to `MessageSquarePlus`.
+- **Import path** in Layout.tsx: `../components/common/FeedbackButton` → `../common/FeedbackButton`.
+- **useEffect reference bug** in PracticePage: feedback-context effect was referencing `currentQuestion` before it was declared → moved to after declaration.
+- **In-card Next/Finish button** + below-card "View Results" button were duplicate → removed below-card duplicate (in-card has clearer context).
+- **4 missing sourceReferences** on main_idea questions (q-002-main, q-004-main, q-005-main, q-012-main) → added.
+
+### Improved
+- **QuestionDots** accessibility: aria-label now differentiates correct/incorrect answered states; added border + ring for stronger visual state.
+- **FeedbackButton** categories: replaced with student-friendly labels (e.g. "Answer marked wrong (but I think it's right)" instead of "Marking seems wrong"); added "Typo or translation issue".
+- **FeedbackButton** body: removed `navigator.userAgent` (unnecessary technical info exposed to students).
+
+### Tests added (10 new)
+- `QuestionCard-flow.test.tsx` (5 tests) — click flow, multiple-option switching, MC submit index, key-remount isolation.
+- `PracticePage-flow.test.tsx` (5 tests) — full Q1→Q2→Q3→Finish, written-question flow, Try Again isolation, navigation preservation, Finish on last question.
+
+### Current totals
+- **Exercises:** 21 (18 original + 3 monologue/dialogue variants for school/study-abroad/study)
+- **Audio files:** 202 MP3, 12 MB committed
+- **Tests:** 29 passing
+- **Audio alignment:** 21/21
+- **JS bundle:** 463 kB (139 kB gzipped)
+- **CSS bundle:** 30 kB (6.5 kB gzipped)
 
 ---
 

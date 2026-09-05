@@ -101,6 +101,7 @@ export const MORE_EXERCISES: Exercise[] = [
         options: ['如何做中国菜', '中国菜的种类和特点', '去中国旅游的经历', '学习中文的方法'],
         correctOptionIndex: 1,
         modelAnswer: '中国菜的种类和特点',
+        sourceReference: '整段对话围绕中国各地菜系的特点和故事',
       },
     ],
   },

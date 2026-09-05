@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, BookOpen, CircleAlert } from 'lucide-react';
+import { ArrowLeft, BookOpen, CircleAlert } from 'lucide-react';
 import { usePracticeStore } from '../stores/practiceStore';
 import { useStatsStore } from '../stores/statsStore';
 import { useFeedbackContext } from '../stores/feedbackContext';
@@ -68,6 +68,19 @@ export function PracticePage() {
   const totalQuestions = exercise?.questions.length ?? 0;
   const answeredCount = answers.length;
   const allAnswered = answeredCount >= totalQuestions && totalQuestions > 0;
+
+  // Keep feedback context in sync with the currently-viewed question.
+  useEffect(() => {
+    if (exercise && currentQuestion) {
+      setFeedbackContext({
+        exerciseId: exercise.id,
+        exerciseTitle: exercise.script.title,
+        questionId: currentQuestion.id,
+        questionIndex: String(currentQuestionIndex + 1),
+        questionType: currentQuestion.type,
+      });
+    }
+  }, [exercise, currentQuestion, currentQuestionIndex, setFeedbackContext]);
 
   const handleAnswerSubmit = useCallback((questionId: string, answer: number | string) => {
     submitAnswer(questionId, answer);
@@ -251,16 +264,8 @@ export function PracticePage() {
               <ArrowLeft size={16} />
               上一题 Prev
             </button>
-
-            {allAnswered && currentQuestionIndex === totalQuestions - 1 && currentAnswer?.isCorrect !== undefined && (
-              <button
-                onClick={handleFinish}
-                className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                <CheckCircle size={16} />
-                完成练习 View Results
-              </button>
-            )}
+            {/* No below-card "Next/Finish" button — the in-card button
+                after submission handles that, with clearer context. */}
           </div>
         </>
       )}
@@ -298,15 +303,15 @@ function QuestionDots({
             <button
               key={i}
               onClick={() => onJump(i)}
-              aria-label={`Go to question ${i + 1}${isAnswered ? ' (answered)' : ''}`}
+              aria-label={`Go to question ${i + 1}${isAnswered ? (isCorrect ? ' (answered correctly)' : ' (answered, check transcript)') : ''}`}
               aria-current={isCurrent ? 'step' : undefined}
               className={`w-8 h-8 rounded-full text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 isCurrent
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-blue-600 text-white ring-2 ring-blue-300'
                   : isAnswered
                     ? isCorrect
-                      ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                      : 'bg-amber-100 text-amber-700 hover:bg-amber-200'
+                      ? 'bg-green-100 text-green-700 hover:bg-green-200 border border-green-300'
+                      : 'bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-300'
                     : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
               }`}
             >

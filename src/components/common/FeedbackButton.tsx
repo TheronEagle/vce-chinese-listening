@@ -16,12 +16,13 @@ export function FeedbackButton() {
   const context = useFeedbackContext(s => s.context);
 
   const categories = [
-    'Audio problem',
     'Question unclear',
-    'Marking seems wrong',
-    'Something is broken',
+    'Answer marked wrong (but I think it\'s right)',
+    'Audio not playing or wrong',
+    'Typo or translation issue',
+    'Technical issue / something broken',
     'Suggestion',
-    'General feedback',
+    'Other',
   ];
 
   const buildMailto = () => {
@@ -30,7 +31,7 @@ export function FeedbackButton() {
       ? Object.entries(context).map(([k, v]) => `${k}: ${v}`).join('\n')
       : '';
     const body = encodeURIComponent(
-      `Category: ${category}\n\nWhat happened:\n[Please describe]\n\n${contextLines ? `Context:\n${contextLines}\n` : ''}\nBrowser: ${navigator.userAgent}`,
+      `Category: ${category}\n\nWhat happened:\n[Please describe]\n\n${contextLines ? `Context:\n${contextLines}\n` : ''}`,
     );
     return `mailto:theroneagle+vcetestchinese@proton.me?subject=${subject}&body=${body}`;
   };
@@ -44,7 +45,7 @@ export function FeedbackButton() {
         aria-label="Report a problem or send feedback"
         title="Report a problem"
       >
-        <MessageSquareWarning size={20} />
+        <MessageSquarePlus size={20} />
       </button>
 
       {/* Modal */}
@@ -62,7 +63,7 @@ export function FeedbackButton() {
           >
             <div className="flex items-center justify-between mb-3">
               <h2 id="feedback-title" className="font-semibold text-base flex items-center gap-2">
-                <MessageSquareWarning size={18} className="text-blue-600" />
+                <MessageSquarePlus size={18} className="text-blue-600" />
                 Send Feedback
               </h2>
               <button
