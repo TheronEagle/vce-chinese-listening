@@ -1,5 +1,7 @@
 node_modules/
 dist/
+.venv/
+.venv-audio/
 .env
 .env.local
 *.local
