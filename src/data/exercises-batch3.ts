@@ -1,0 +1,267 @@
+import type { Exercise } from '../types';
+
+export const EXERCISES_BATCH3: Exercise[] = [
+  // ============================================================
+  // EXERCISE 8: Family
+  // ============================================================
+  {
+    id: 'ex-008',
+    createdAt: '2026-09-04',
+    script: {
+      id: 'script-008',
+      title: '我的家庭',
+      topic: 'family',
+      difficulty: 'beginner',
+      dialogue: [
+        { speaker: 'A', speakerName: '小云', chinese: '大卫，你家里有几口人？', pinyin: 'Dàwèi, nǐ jiālǐ yǒu jǐ kǒu rén?', english: 'David, how many people are in your family?' },
+        { speaker: 'B', speakerName: '大卫', chinese: '我家有五口人：爸爸、妈妈、姐姐、弟弟和我。', pinyin: 'Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, jiějie, dìdi hé wǒ.', english: 'There are five people in my family: my dad, mum, older sister, younger brother, and me.' },
+        { speaker: 'A', speakerName: '小云', chinese: '你爸爸做什么工作？', pinyin: 'Nǐ bàba zuò shénme gōngzuò?', english: 'What does your dad do for work?' },
+        { speaker: 'B', speakerName: '大卫', chinese: '我爸爸是医生，在医院工作。他每天都很忙，但是他很喜欢他的工作。', pinyin: 'Wǒ bàba shì yīshēng, zài yīyuàn gōngzuò. Tā měitiān dōu hěn máng, dànshì tā hěn xǐhuān tā de gōngzuò.', english: 'My dad is a doctor. He works at a hospital. He\'s very busy every day, but he really likes his job.' },
+        { speaker: 'A', speakerName: '小云', chinese: '你妈妈呢？', pinyin: 'Nǐ māma ne?', english: 'And your mum?' },
+        { speaker: 'B', speakerName: '大卫', chinese: '我妈妈是老师，教小学中文。她很温柔，学生们都很喜欢她。', pinyin: 'Wǒ māma shì lǎoshī, jiào xiǎoxué zhōngwén. Tā hěn wēnróu, xuéshēngmen dōu hěn xǐhuān tā.', english: 'My mum is a teacher. She teaches Chinese at primary school. She\'s very gentle, and all the students like her.' },
+        { speaker: 'A', speakerName: '小云', chinese: '你姐姐和弟弟呢？', pinyin: 'Nǐ jiějie hé dìdi ne?', english: 'What about your sister and brother?' },
+        { speaker: 'B', speakerName: '大卫', chinese: '我姐姐在大学学医，以后也想当医生。我弟弟还在上高中，他喜欢打篮球。', pinyin: 'Wǒ jiějie zài dàxué xué yī, yǐhòu yě xiǎng dāng yīshēng. Wǒ dìdi hái zài shàng gāozhōng, tā xǐhuān dǎ lánqiú.', english: 'My sister is studying medicine at university and also wants to be a doctor. My younger brother is still in high school. He likes playing basketball.' },
+        { speaker: 'A', speakerName: '小云', chinese: '你们家真幸福！周末你们一般做什么？', pinyin: 'Nǐmen jiā zhēn xìngfú! Zhōumò nǐmen yìbān zuò shénme?', english: 'Your family is really happy! What do you usually do on weekends?' },
+        { speaker: 'B', speakerName: '大卫', chinese: '周末我们经常一起做饭，有时候去看爷爷奶奶。我爷爷喜欢下棋，奶奶喜欢做饭。', pinyin: 'Zhōumò wǒmen jīngcháng yìqǐ zuò fàn, yǒu shíhòu qù kàn yéye nǎinai. Wǒ yéye xǐhuān xià qí, nǎinai xǐhuān zuò fàn.', english: 'On weekends we often cook together. Sometimes we visit my grandparents. My grandpa likes playing chess, and grandma likes cooking.' },
+      ],
+      vocabulary: [
+        { chinese: '口人', pinyin: 'kǒu rén', english: 'measure word for family members', partOfSpeech: 'measure' },
+        { chinese: '医生', pinyin: 'yīshēng', english: 'doctor', partOfSpeech: 'noun' },
+        { chinese: '温柔', pinyin: 'wēnróu', english: 'gentle / warm', partOfSpeech: 'adjective' },
+        { chinese: '小学', pinyin: 'xiǎoxué', english: 'primary school', partOfSpeech: 'noun' },
+        { chinese: '高中', pinyin: 'gāozhōng', english: 'high school', partOfSpeech: 'noun' },
+        { chinese: '幸福', pinyin: 'xìngfú', english: 'happy / blessed', partOfSpeech: 'adjective' },
+        { chinese: '下棋', pinyin: 'xià qí', english: 'play chess', partOfSpeech: 'verb' },
+      ],
+      fullEnglish: 'Xiao Yun: David, how many people are in your family?\nDavid: There are five people in my family: my dad, mum, older sister, younger brother, and me.\nXiao Yun: What does your dad do for work?\nDavid: My dad is a doctor. He works at a hospital. He\'s very busy every day, but he really likes his job.\nXiao Yun: And your mum?\nDavid: My mum is a teacher. She teaches Chinese at primary school. She\'s very gentle, and all the students like her.\nXiao Yun: What about your sister and brother?\nDavid: My sister is studying medicine at university and also wants to be a doctor. My younger brother is still in high school. He likes playing basketball.\nXiao Yun: Your family is really happy! What do you usually do on weekends?\nDavid: On weekends we often cook together. Sometimes we visit my grandparents. My grandpa likes playing chess, and grandma likes cooking.',
+    },
+    questions: [
+      {
+        id: 'q-008-mc', type: 'multiple_choice',
+        chineseQuestion: '大卫家有几口人？',
+        englishInstruction: 'How many people are in David\'s family?',
+        marks: 1, options: ['三口', '四口', '五口', '六口'],
+        correctOptionIndex: 2, modelAnswer: '五口',
+        sourceReference: '我家有五口人',
+      },
+      {
+        id: 'q-008-si', type: 'specific_information',
+        chineseQuestion: '大卫的爸爸是做什么工作的？',
+        englishInstruction: 'What is David\'s dad\'s job?',
+        marks: 1,
+        markingPoints: [{ id: 'mp-58', keyIdea: 'Doctor', englishMeaning: 'David\'s dad is a doctor', chineseKeywords: ['医生'], marks: 1 }],
+        modelAnswer: '大卫的爸爸是医生。',
+        sourceReference: '我爸爸是医生',
+      },
+      {
+        id: 'q-008-three', type: 'which_three',
+        chineseQuestion: '大卫的妈妈有什么特点？请说出三点。',
+        englishInstruction: 'What are three things about David\'s mum?',
+        marks: 3,
+        markingPoints: [
+          { id: 'mp-59', keyIdea: 'She is a teacher', englishMeaning: 'She is a teacher', chineseKeywords: ['老师'], marks: 1 },
+          { id: 'mp-60', keyIdea: 'She teaches Chinese at primary school', englishMeaning: 'She teaches Chinese at primary school', chineseKeywords: ['小学', '中文'], marks: 1 },
+          { id: 'mp-61', keyIdea: 'She is gentle, students like her', englishMeaning: 'She is gentle and students like her', chineseKeywords: ['温柔', '喜欢'], marks: 1 },
+        ],
+        modelAnswer: '她是老师，在小学教中文。她很温柔，学生们都很喜欢她。',
+        sourceReference: '我妈妈是老师，教小学中文。她很温柔，学生们都很喜欢她。',
+      },
+      {
+        id: 'q-008-compare', type: 'comparison',
+        chineseQuestion: '比较大卫的姐姐和弟弟的情况。',
+        englishInstruction: 'Compare David\'s sister and brother.',
+        marks: 3,
+        markingPoints: [
+          { id: 'mp-62', keyIdea: 'Sister is at university studying medicine', englishMeaning: 'Sister studies medicine at university', chineseKeywords: ['大学', '学医'], marks: 1 },
+          { id: 'mp-63', keyIdea: 'Sister wants to be a doctor too', englishMeaning: 'Sister also wants to be a doctor', chineseKeywords: ['当医生'], marks: 1 },
+          { id: 'mp-64', keyIdea: 'Brother is in high school, likes basketball', englishMeaning: 'Brother is in high school and likes basketball', chineseKeywords: ['高中', '篮球'], marks: 1 },
+        ],
+        modelAnswer: '姐姐在大学学医，以后也想当医生。弟弟还在上高中，他喜欢打篮球。',
+        sourceReference: '我姐姐在大学学医...我弟弟还在上高中，他喜欢打篮球',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EXERCISE 9: Travel
+  // ============================================================
+  {
+    id: 'ex-009',
+    createdAt: '2026-09-04',
+    script: {
+      id: 'script-009',
+      title: '去中国旅游',
+      topic: 'travel',
+      difficulty: 'intermediate',
+      dialogue: [
+        { speaker: 'A', speakerName: '小红', chinese: '杰克，你暑假去中国旅游了？去了哪些地方？', pinyin: 'Jiékè, nǐ shǔjià qù Zhōngguó lǚyóu le? Qù le nǎxiē dìfāng?', english: 'Jack, you travelled to China during the summer holidays? Which places did you visit?' },
+        { speaker: 'B', speakerName: '杰克', chinese: '对！我去了北京、西安和成都。每个城市都很不一样。', pinyin: 'Duì! Wǒ qù le Běijīng, Xī\'ān hé Chéngdū. Měi gè chéngshì dōu hěn bù yíyàng.', english: 'Yes! I went to Beijing, Xi\'an, and Chengdu. Each city was very different.' },
+        { speaker: 'A', speakerName: '小红', chinese: '你最喜欢哪个城市？', pinyin: 'Nǐ zuì xǐhuān nǎ gè chéngshì?', english: 'Which city did you like most?' },
+        { speaker: 'B', speakerName: '杰克', chinese: '我最喜欢西安。我参观了兵马俑，非常震撼！有几千年的历史。', pinyin: 'Wǒ zuì xǐhuān Xī\'ān. Wǒ cānguān le bīngmǎyǒng, fēicháng zhènhàn! Yǒu jǐ qiān nián de lìshǐ.', english: 'I liked Xi\'an the most. I visited the Terracotta Warriors — it was amazing! Thousands of years of history.' },
+        { speaker: 'A', speakerName: '小红', chinese: '北京怎么样？', pinyin: 'Běijīng zěnmeyàng?', english: 'How was Beijing?' },
+        { speaker: 'B', speakerName: '杰克', chinese: '北京也很棒。我爬了长城，走了故宫。长城很长很长，走到最后腿都酸了，但是很值得。', pinyin: 'Běijīng yě hěn bàng. Wǒ pá le Chángchéng, zǒu le Gùgōng. Chángchéng hěn cháng hěn cháng, zǒu dào zuìhòu tuǐ dōu suān le, dànshì hěn zhídé.', english: 'Beijing was also great. I climbed the Great Wall and walked through the Forbidden City. The Great Wall is so long — my legs were sore at the end, but it was worth it.' },
+        { speaker: 'A', speakerName: '小红', chinese: '成都呢？听说成都的东西很好吃。', pinyin: 'Chéngdū ne? Tīngshuō Chéngdū de dōngxi hěn hǎo chī.', english: 'And Chengdu? I hear the food there is really good.' },
+        { speaker: 'B', speakerName: '杰克', chinese: '成都太好吃了！我吃了很多火锅和串串。还去了大熊猫基地，看到了可爱的大熊猫。成都的生活节奏很慢，很舒服。', pinyin: 'Chéngdū tài hǎo chī le! Wǒ chī le hěn duō huǒguō hé chuànchuàn. Hái qù le dà xióngmāo jīdì, kàn dào le kě\'ài de dà xióngmāo. Chéngdū de shēnghuó jiézòu hěn màn, hěn shūfu.', english: 'Chengdu was amazing for food! I had lots of hotpot and skewers. I also went to the Giant Panda Base and saw adorable pandas. The pace of life in Chengdu is slow and comfortable.' },
+        { speaker: 'A', speakerName: '小红', chinese: '你这次旅行花了多少钱？', pinyin: 'Nǐ zhè cì lǚxíng huā le duōshao qián?', english: 'How much did this trip cost?' },
+        { speaker: 'B', speakerName: '杰克', chinese: '大概花了三千多块，包括机票、酒店和吃饭。中国的高铁很方便，我从北京坐高铁去西安，又从西安坐高铁去成都。', pinyin: 'Dàgài huā le sān qiān duō kuài, bāokuò jīpiào, jiǔdiàn hé chī fàn. Zhōngguó de gāotiě hěn fāngbiàn, wǒ cóng Běijīng zuò gāotiě qù Xī\'ān, yòu cóng Xī\'ān zuò gāotiě qù Chéngdū.', english: 'About three thousand dollars, including flights, hotels, and food. China\'s high-speed rail is very convenient. I took the high-speed train from Beijing to Xi\'an, then from Xi\'an to Chengdu.' },
+      ],
+      vocabulary: [
+        { chinese: '兵马俑', pinyin: 'bīngmǎyǒng', english: 'Terracotta Warriors', partOfSpeech: 'noun' },
+        { chinese: '震撼', pinyin: 'zhènhàn', english: 'shocking / awe-inspiring', partOfSpeech: 'adjective' },
+        { chinese: '长城', pinyin: 'Chángchéng', english: 'Great Wall', partOfSpeech: 'noun' },
+        { chinese: '故宫', pinyin: 'Gùgōng', english: 'Forbidden City', partOfSpeech: 'noun' },
+        { chinese: '值得', pinyin: 'zhídé', english: 'worth it', partOfSpeech: 'adjective' },
+        { chinese: '大熊猫', pinyin: 'dà xióngmāo', english: 'giant panda', partOfSpeech: 'noun' },
+        { chinese: '节奏', pinyin: 'jiézòu', english: 'pace / rhythm', partOfSpeech: 'noun' },
+        { chinese: '高铁', pinyin: 'gāotiě', english: 'high-speed rail', partOfSpeech: 'noun' },
+      ],
+      fullEnglish: 'Xiao Hong: Jack, you travelled to China during the summer holidays? Which places did you visit?\nJack: Yes! I went to Beijing, Xi\'an, and Chengdu. Each city was very different.\nXiao Hong: Which city did you like most?\nJack: I liked Xi\'an the most. I visited the Terracotta Warriors — it was amazing! Thousands of years of history.\nXiao Hong: How was Beijing?\nJack: Beijing was also great. I climbed the Great Wall and walked through the Forbidden City. The Great Wall is so long — my legs were sore at the end, but it was worth it.\nXiao Hong: And Chengdu? I hear the food there is really good.\nJack: Chengdu was amazing for food! I had lots of hotpot and skewers. I also went to the Giant Panda Base and saw adorable pandas. The pace of life in Chengdu is slow and comfortable.\nXiao Hong: How much did this trip cost?\nJack: About three thousand dollars, including flights, hotels, and food. China\'s high-speed rail is very convenient. I took the high-speed train from Beijing to Xi\'an, then from Xi\'an to Chengdu.',
+    },
+    questions: [
+      {
+        id: 'q-009-mc', type: 'multiple_choice',
+        chineseQuestion: '杰克最喜欢哪个城市？',
+        englishInstruction: 'Which city did Jack like most?',
+        marks: 1, options: ['北京', '西安', '成都', '上海'],
+        correctOptionIndex: 1, modelAnswer: '西安',
+        sourceReference: '我最喜欢西安',
+      },
+      {
+        id: 'q-009-why', type: 'why_reason',
+        chineseQuestion: '杰克为什么最喜欢西安？',
+        englishInstruction: 'Why did Jack like Xi\'an the most?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-65', keyIdea: 'Visited the Terracotta Warriors', englishMeaning: 'He visited the Terracotta Warriors', chineseKeywords: ['兵马俑'], marks: 1 },
+          { id: 'mp-66', keyIdea: 'Thousands of years of history', englishMeaning: 'It has thousands of years of history and was awe-inspiring', chineseKeywords: ['几千年', '历史', '震撼'], marks: 1 },
+        ],
+        modelAnswer: '因为他参观了兵马俑，非常震撼，有几千年的历史。',
+        sourceReference: '我参观了兵马俑，非常震撼！有几千年的历史',
+      },
+      {
+        id: 'q-009-three', type: 'which_three',
+        chineseQuestion: '杰克在成都做了哪三件事？',
+        englishInstruction: 'What three things did Jack do in Chengdu?',
+        marks: 3,
+        markingPoints: [
+          { id: 'mp-67', keyIdea: 'Ate hotpot', englishMeaning: 'Ate hotpot', chineseKeywords: ['火锅'], marks: 1 },
+          { id: 'mp-68', keyIdea: 'Ate skewers', englishMeaning: 'Ate skewers (串串)', chineseKeywords: ['串串'], marks: 1 },
+          { id: 'mp-69', keyIdea: 'Visited the Giant Panda Base', englishMeaning: 'Went to the Giant Panda Base and saw pandas', chineseKeywords: ['大熊猫', '基地'], marks: 1 },
+        ],
+        modelAnswer: '吃了很多火锅和串串，还去了大熊猫基地看大熊猫。',
+        sourceReference: '我吃了很多火锅和串串。还去了大熊猫基地',
+      },
+      {
+        id: 'q-009-si', type: 'specific_information',
+        chineseQuestion: '杰克这次旅行大概花了多少钱？包括什么？',
+        englishInstruction: 'Approximately how much did the trip cost? What was included?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-70', keyIdea: 'About three thousand dollars', englishMeaning: 'About 3000+ dollars', chineseKeywords: ['三千'], marks: 1 },
+          { id: 'mp-71', keyIdea: 'Including flights, hotels, and food', englishMeaning: 'Included flights, hotels, and food', chineseKeywords: ['机票', '酒店', '吃饭'], marks: 1 },
+        ],
+        modelAnswer: '大概花了三千多块，包括机票、酒店和吃饭。',
+        sourceReference: '大概花了三千多块，包括机票、酒店和吃饭',
+      },
+      {
+        id: 'q-009-opinion', type: 'opinion_attitude',
+        chineseQuestion: '杰克对中国高铁有什么看法？',
+        englishInstruction: 'What is Jack\'s opinion of China\'s high-speed rail?',
+        marks: 1,
+        markingPoints: [
+          { id: 'mp-72', keyIdea: 'Very convenient', englishMeaning: 'China\'s high-speed rail is very convenient', chineseKeywords: ['高铁', '方便'], marks: 1 },
+        ],
+        modelAnswer: '杰克觉得中国的高铁很方便。',
+        sourceReference: '中国的高铁很方便',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EXERCISE 10: Contemporary China
+  // ============================================================
+  {
+    id: 'ex-010',
+    createdAt: '2026-09-04',
+    script: {
+      id: 'script-010',
+      title: '中国的移动支付',
+      topic: 'contemporary_china',
+      difficulty: 'advanced',
+      dialogue: [
+        { speaker: 'A', speakerName: '记者', chinese: '李教授，您能介绍一下中国移动支付的发展情况吗？', pinyin: 'Lǐ jiàoshòu, nín néng jièshào yíxià Zhōngguó yídòng zhīfù de fāzhǎn qíngkuàng ma?', english: 'Professor Li, could you introduce the development of mobile payment in China?' },
+        { speaker: 'B', speakerName: '李教授', chinese: '好的。中国的移动支付发展非常快。现在大部分中国人出门都不带现金，用手机就可以付款。', pinyin: 'Hǎo de. Zhōngguó de yídòng zhīfù fāzhǎn fēicháng kuài. Xiànzài dà bùfèn Zhōngguórén chūmén dōu bú dài xiànjīn, yòng shǒujī jiù kěyǐ fùkuǎn.', english: 'Sure. Mobile payment in China has developed very quickly. Now most Chinese people don\'t carry cash when going out — they can pay with their phones.' },
+        { speaker: 'A', speakerName: '记者', chinese: '主要用什么方式？', pinyin: 'Zhǔyào yòng shénme fāngshì?', english: 'What are the main methods?' },
+        { speaker: 'B', speakerName: '李教授', chinese: '最常用的是微信支付和支付宝。买菜、坐地铁、交水电费，甚至在小摊上买水果，都可以扫码支付。', pinyin: 'Zuì chángyòng de shì Wēixìn zhīfù hé Zhīfùbǎo. Mǎi cài, zuò dìtiě, jiāo shuǐdiàn fèi, shènzhì zài xiǎo tān shàng mǎi shuǐguǒ, dōu kěyǐ sǎo mǎ zhīfù.', english: 'The most common are WeChat Pay and Alipay. Buying vegetables, taking the subway, paying utility bills, even buying fruit from a street stall — you can scan a QR code to pay.' },
+        { speaker: 'A', speakerName: '记者', chinese: '这对人们的生活有什么影响？', pinyin: 'Zhè duì rénmen de shēnghuó yǒu shénme yǐngxiǎng?', english: 'What impact has this had on people\'s lives?' },
+        { speaker: 'B', speakerName: '李教授', chinese: '影响很大。首先，生活更方便了，不用带钱包。其次，做生意更简单了，小商户也能接受电子支付。但是也有一些问题。', pinyin: 'Yǐngxiǎng hěn dà. Shǒuxiān, shēnghuó gèng fāngbiàn le, bú yòng dài qiánbāo. Qícì, zuò shēngyì gèng jiǎndān le, xiǎo shānghù yě néng jiēshòu diànzǐ zhīfù. Dànshì yě yǒu yìxiē wèntí.', english: 'The impact is huge. First, life is more convenient — no need to carry a wallet. Second, doing business is simpler — even small vendors can accept electronic payment. But there are also some problems.' },
+        { speaker: 'A', speakerName: '记者', chinese: '有什么问题？', pinyin: 'Yǒu shénme wèntí?', english: 'What problems?' },
+        { speaker: 'B', speakerName: '李教授', chinese: '主要是老年人不太会用手机支付。他们习惯了用现金，觉得扫码很复杂。另外，如果手机没电了，就没法付款了。', pinyin: 'Zhǔyào shì lǎonián rén bú tài huì yòng shǒujī zhīfù. Tāmen xíguàn le yòng xiànjīn, juédé sǎo mǎ hěn fùzá. Lìngwài, rúguǒ shǒujī méi diàn le, jiù méi fǎ fùkuǎn le.', english: 'Mainly elderly people aren\'t very good at using mobile payment. They\'re used to cash and find QR code scanning complicated. Also, if your phone runs out of battery, you can\'t pay.' },
+        { speaker: 'A', speakerName: '记者', chinese: '您觉得移动支付的未来会怎样？', pinyin: 'Nín juédé yídòng zhīfù de wèilái huì zěnyàng?', english: 'What do you think the future of mobile payment will be?' },
+        { speaker: 'B', speakerName: '李教授', chinese: '我觉得会越来越普及。现在已经有人脸识别支付了，以后可能连手机都不需要。但是我们也应该保留现金支付的选择，照顾到每一个人。', pinyin: 'Wǒ juédé huì yuè lái yuè pǔjí. Xiànzài yǐjīng yǒu rénliǎn shíbié zhīfù le, yǐhòu kěnéng lián shǒujī dōu bù xūyào. Dànshì wǒmen yě yīnggāi bǎoliú xiànjīn zhīfù de xuǎnzé, zhàogù dào měi yí gè rén.', english: 'I think it will become even more widespread. There\'s already facial recognition payment, and in the future you might not even need a phone. But we should also keep cash payment as an option, to look after everyone.' },
+      ],
+      vocabulary: [
+        { chinese: '移动支付', pinyin: 'yídòng zhīfù', english: 'mobile payment', partOfSpeech: 'noun' },
+        { chinese: '现金', pinyin: 'xiànjīn', english: 'cash', partOfSpeech: 'noun' },
+        { chinese: '微信支付', pinyin: 'Wēixìn zhīfù', english: 'WeChat Pay', partOfSpeech: 'noun' },
+        { chinese: '支付宝', pinyin: 'Zhīfùbǎo', english: 'Alipay', partOfSpeech: 'noun' },
+        { chinese: '扫码', pinyin: 'sǎo mǎ', english: 'scan QR code', partOfSpeech: 'verb' },
+        { chinese: '小摊', pinyin: 'xiǎo tān', english: 'street stall', partOfSpeech: 'noun' },
+        { chinese: '水电费', pinyin: 'shuǐdiàn fèi', english: 'utility bills', partOfSpeech: 'noun' },
+        { chinese: '普及', pinyin: 'pǔjí', english: 'popularize / widespread', partOfSpeech: 'verb/adjective' },
+        { chinese: '人脸识别', pinyin: 'rénliǎn shíbié', english: 'facial recognition', partOfSpeech: 'noun' },
+        { chinese: '保留', pinyin: 'bǎoliú', english: 'keep / retain', partOfSpeech: 'verb' },
+      ],
+      fullEnglish: 'Reporter: Professor Li, could you introduce the development of mobile payment in China?\nProf Li: Sure. Mobile payment in China has developed very quickly. Now most Chinese people don\'t carry cash when going out — they can pay with their phones.\nReporter: What are the main methods?\nProf Li: The most common are WeChat Pay and Alipay. Buying vegetables, taking the subway, paying utility bills, even buying fruit from a street stall — you can scan a QR code to pay.\nReporter: What impact has this had on people\'s lives?\nProf Li: The impact is huge. First, life is more convenient — no need to carry a wallet. Second, doing business is simpler — even small vendors can accept electronic payment. But there are also some problems.\nReporter: What problems?\nProf Li: Mainly elderly people aren\'t very good at using mobile payment. They\'re used to cash and find QR code scanning complicated. Also, if your phone runs out of battery, you can\'t pay.\nReporter: What do you think the future of mobile payment will be?\nProf Li: I think it will become even more widespread. There\'s already facial recognition payment, and in the future you might not even need a phone. But we should also keep cash payment as an option, to look after everyone.',
+    },
+    questions: [
+      {
+        id: 'q-010-mc', type: 'multiple_choice',
+        chineseQuestion: '中国人最常用的两种移动支付方式是什么？',
+        englishInstruction: 'What are the two most common mobile payment methods in China?',
+        marks: 1, options: ['Apple Pay 和 Google Pay', '微信支付和支付宝', '银行卡和信用卡', '现金和支票'],
+        correctOptionIndex: 1, modelAnswer: '微信支付和支付宝',
+        sourceReference: '最常用的是微信支付和支付宝',
+      },
+      {
+        id: 'q-010-adv', type: 'advantages',
+        chineseQuestion: '移动支付给人们的生活带来了什么好处？',
+        englishInstruction: 'What benefits has mobile payment brought to people\'s lives?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-73', keyIdea: 'Life more convenient, no need for wallet', englishMeaning: 'Life is more convenient, no need to carry a wallet', chineseKeywords: ['方便', '钱包'], marks: 1 },
+          { id: 'mp-74', keyIdea: 'Business simpler, small vendors can accept it', englishMeaning: 'Doing business is simpler, even small vendors can accept electronic payment', chineseKeywords: ['做生意', '简单', '小商户'], marks: 1 },
+        ],
+        modelAnswer: '生活更方便了，不用带钱包。做生意更简单了，小商户也能接受电子支付。',
+        sourceReference: '首先，生活更方便了，不用带钱包。其次，做生意更简单了',
+      },
+      {
+        id: 'q-010-disadv', type: 'disadvantages',
+        chineseQuestion: '移动支付有什么问题？',
+        englishInstruction: 'What problems does mobile payment have?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-75', keyIdea: 'Elderly people struggle with it', englishMeaning: 'Elderly people find mobile payment complicated', chineseKeywords: ['老年人', '不会用', '复杂'], marks: 1 },
+          { id: 'mp-76', keyIdea: 'Phone battery dependency', englishMeaning: 'If phone has no battery, you can\'t pay', chineseKeywords: ['没电', '没法付款'], marks: 1 },
+        ],
+        modelAnswer: '老年人不太会用手机支付，觉得扫码很复杂。如果手机没电了，就没法付款了。',
+        sourceReference: '主要是老年人不太会用手机支付...如果手机没电了，就没法付款了',
+      },
+      {
+        id: 'q-010-complex', type: 'complex_5mark',
+        chineseQuestion: '根据对话内容，分析中国移动支付的发展现状、好处和挑战。你对移动支付有什么看法？',
+        englishInstruction: 'Based on the conversation, analyse the current state, benefits, and challenges of mobile payment in China. What is your opinion?',
+        marks: 5,
+        markingPoints: [
+          { id: 'mp-77', keyIdea: 'Fast development, most people use it', englishMeaning: 'Mobile payment developed very fast; most Chinese people use phones to pay', chineseKeywords: ['发展', '快', '手机', '付款'], marks: 1 },
+          { id: 'mp-78', keyIdea: 'Convenience - no wallet needed', englishMeaning: 'More convenient, no need to carry wallet', chineseKeywords: ['方便', '钱包'], marks: 1 },
+          { id: 'mp-79', keyIdea: 'Business benefits', englishMeaning: 'Simpler for businesses, including small vendors', chineseKeywords: ['做生意', '简单'], marks: 1 },
+          { id: 'mp-80', keyIdea: 'Elderly people face difficulties', englishMeaning: 'Elderly people find it hard to use', chineseKeywords: ['老年人', '复杂'], marks: 1 },
+          { id: 'mp-81', keyIdea: 'Personal opinion with reasoning', englishMeaning: 'Student provides their own reasoned opinion', marks: 1 },
+        ],
+        modelAnswer: '中国移动支付发展非常快，大部分人都用手机付款。好处是生活更方便，做生意更简单。挑战是老年人不会用，而且手机没电就不能付款。我认为移动支付很好，但应该保留现金支付的选择。',
+        sourceReference: 'Multiple parts of dialogue',
+      },
+    ],
+  },
+];

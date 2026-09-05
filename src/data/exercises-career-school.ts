@@ -1,0 +1,403 @@
+import type { Exercise } from '../types';
+
+export const EXERCISES_CAREER_SCHOOL: Exercise[] = [
+  // ============================================================
+  // EXERCISE 14: University Major Choice
+  // ============================================================
+  {
+    id: 'ex-014',
+    createdAt: '2026-09-05',
+    script: {
+      id: 'script-014',
+      title: '选专业还是选兴趣？',
+      topic: 'future_aspirations',
+      difficulty: 'intermediate',
+      dialogue: [
+        { speaker: 'A', speakerName: '爸爸', chinese: '小雨，你大学想学什么专业？', pinyin: 'Xiǎo Yǔ, nǐ dàxué xiǎng xué shénme zhuānyè?', english: 'Xiao Yu, what major do you want to study in university?' },
+        { speaker: 'B', speakerName: '小雨', chinese: '爸，我想学艺术设计，但是妈妈说学商科比较好找工作。', pinyin: 'Bà, wǒ xiǎng xué yìshù shèjì, dànshì māma shuō xué shāngkē bǐjiào hǎo zhǎo gōngzuò.', english: 'Dad, I want to study art design, but Mum says studying business is better for finding a job.' },
+        { speaker: 'A', speakerName: '爸爸', chinese: '那你自己怎么想？', pinyin: 'Nà nǐ zìjǐ zěnme xiǎng?', english: 'Then what do you think?' },
+        { speaker: 'B', speakerName: '小雨', chinese: '我觉得选自己喜欢的很重要。如果做不喜欢的工作，每天都不开心。', pinyin: 'Wǒ juédé xuǎn zìjǐ xǐhuān de hěn zhòngyào. Rúguò zuò bù xǐhuān de gōngzuò, měitiān dōu bù kāixīn.', english: 'I think choosing what you like is very important. If you do a job you don\'t like, you\'ll be unhappy every day.' },
+        { speaker: 'A', speakerName: '爸爸', chinese: '你说得有道理。但是你也要考虑以后的收入和生活。', pinyin: 'Nǐ shuō de yǒu dàolǐ. Dànshì nǐ yě yào kǎolǜ yǐhòu de shōurù hé shēnghuó.', english: 'You make a good point. But you also need to consider future income and living.' },
+        { speaker: 'B', speakerName: '小雨', chinese: '我知道。现在设计行业也很有前途，很多公司需要设计师。', pinyin: 'Wǒ zhīdào. Xiànzài shèjì hángyè yě hěn yǒu qiántú, hěn duō gōngsī xūyào shèjìshī.', english: 'I know. The design industry has good prospects now. Many companies need designers.' },
+        { speaker: 'A', speakerName: '爸爸', chinese: '好吧，你长大了，自己做决定。爸爸妈妈会支持你。', pinyin: 'Hǎo ba, nǐ zhǎng dà le, zìjǐ zuò juédìng. Bàba māma huì zhīchí nǐ.', english: 'Alright, you\'ve grown up. Make your own decision. Mum and Dad will support you.' },
+        { speaker: 'B', speakerName: '小雨', chinese: '谢谢爸爸！我不会让你们失望的。', pinyin: 'Xièxie bàba! Wǒ bú huì ràng nǐmen shīwàng de.', english: 'Thank you Dad! I won\'t let you down.' },
+      ],
+      vocabulary: [
+        { chinese: '艺术设计', pinyin: 'yìshù shèjì', english: 'art design', partOfSpeech: 'noun' },
+        { chinese: '商科', pinyin: 'shāngkē', english: 'business studies', partOfSpeech: 'noun' },
+        { chinese: '道理', pinyin: 'dàolǐ', english: 'reason / logic', partOfSpeech: 'noun' },
+        { chinese: '收入', pinyin: 'shōurù', english: 'income', partOfSpeech: 'noun' },
+        { chinese: '行业', pinyin: 'hángyè', english: 'industry', partOfSpeech: 'noun' },
+        { chinese: '前途', pinyin: 'qiántú', english: 'prospects / future', partOfSpeech: 'noun' },
+        { chinese: '失望', pinyin: 'shīwàng', english: 'disappointed', partOfSpeech: 'adjective' },
+      ],
+      fullEnglish: 'Dad: Xiao Yu, what major do you want to study in university?\nXiao Yu: Dad, I want to study art design, but Mum says studying business is better for finding a job.\nDad: Then what do you think?\nXiao Yu: I think choosing what you like is very important. If you do a job you don\'t like, you\'ll be unhappy every day.\nDad: You make a good point. But you also need to consider future income and living.\nXiao Yu: I know. The design industry has good prospects now. Many companies need designers.\nDad: Alright, you\'ve grown up. Make your own decision. Mum and Dad will support you.\nXiao Yu: Thank you Dad! I won\'t let you down.',
+    },
+    questions: [
+      {
+        id: 'q-014-mc',
+        type: 'multiple_choice',
+        chineseQuestion: '小雨想学什么专业？',
+        englishInstruction: 'What major does Xiao Yu want to study?',
+        marks: 1,
+        options: ['商科', '艺术设计', '计算机', '医学'],
+        correctOptionIndex: 1,
+        modelAnswer: '艺术设计',
+        sourceReference: '我想学艺术设计',
+      },
+      {
+        id: 'q-014-why',
+        type: 'why_reason',
+        chineseQuestion: '小雨为什么不想学商科？',
+        englishInstruction: 'Why doesn\'t Xiao Yu want to study business?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-14a', keyIdea: 'Wants to study what she likes', englishMeaning: 'She thinks choosing what you like is important', chineseKeywords: ['喜欢', '重要'], marks: 1 },
+          { id: 'mp-14b', keyIdea: 'Would be unhappy doing a job she dislikes', englishMeaning: 'If she does a job she doesn\'t like, she\'ll be unhappy every day', chineseKeywords: ['不开心', '不喜欢'], marks: 1 },
+        ],
+        modelAnswer: '因为她觉得选自己喜欢的很重要，如果做不喜欢的工作每天都不开心。',
+        sourceReference: '选自己喜欢的很重要。如果做不喜欢的工作，每天都不开心',
+      },
+      {
+        id: 'q-014-compare',
+        type: 'comparison',
+        chineseQuestion: '比较爸爸和妈妈对选专业的看法。',
+        englishInstruction: 'Compare Dad\'s and Mum\'s views on choosing a major.',
+        marks: 4,
+        markingPoints: [
+          { id: 'mp-14c', keyIdea: 'Mum thinks business is better for jobs', englishMeaning: 'Mum says studying business is better for finding a job', chineseKeywords: ['妈妈', '商科', '找工作'], marks: 1 },
+          { id: 'mp-14d', keyIdea: 'Dad considers both passion and practicality', englishMeaning: 'Dad agrees with Xiao Yu\'s reasoning but also considers income and living', chineseKeywords: ['爸爸', '收入', '生活'], marks: 1 },
+          { id: 'mp-14e', keyIdea: 'Dad supports Xiao Yu\'s decision', englishMeaning: 'Dad ultimately supports Xiao Yu\'s own decision', chineseKeywords: ['支持', '自己决定'], marks: 1 },
+          { id: 'mp-14f', keyIdea: 'Mum is more practical, Dad is more balanced', englishMeaning: 'Mum focuses on employment, Dad balances passion and practicality', chineseKeywords: ['平衡', '实际'], marks: 1 },
+        ],
+        modelAnswer: '妈妈觉得学商科比较好找工作，比较实际。爸爸也认为要考虑收入和生活，但最终支持小雨自己做决定，态度比较平衡。',
+        sourceReference: '妈妈说学商科比较好找工作；爸爸说要考虑收入和生活，但会支持你',
+      },
+      {
+        id: 'q-014-attitude',
+        type: 'opinion_attitude',
+        chineseQuestion: '小雨对设计行业的看法是什么？',
+        englishInstruction: 'What is Xiao Yu\'s view on the design industry?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-14g', keyIdea: 'Design industry has good prospects', englishMeaning: 'The design industry has good future prospects', chineseKeywords: ['前途'], marks: 1 },
+          { id: 'mp-14h', keyIdea: 'Many companies need designers', englishMeaning: 'Many companies need designers, so there are job opportunities', chineseKeywords: ['公司', '设计师'], marks: 1 },
+        ],
+        modelAnswer: '小雨认为设计行业很有前途，很多公司需要设计师，所以工作机会很多。',
+        sourceReference: '现在设计行业也很有前途，很多公司需要设计师',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EXERCISE 15: School Life & Study Pressure
+  // ============================================================
+  {
+    id: 'ex-015',
+    createdAt: '2026-09-05',
+    script: {
+      id: 'script-015',
+      title: '学习压力',
+      topic: 'school',
+      difficulty: 'intermediate',
+      dialogue: [
+        { speaker: 'A', speakerName: '老师', chinese: '小李，你最近上课总是打瞌睡，怎么了？', pinyin: 'Xiǎo Lǐ, nǐ zuìjìn shàngkè zǒngshì dǎ kēshuì, zěnme le?', english: 'Xiao Li, you\'ve been dozing off in class recently. What\'s wrong?' },
+        { speaker: 'B', speakerName: '小李', chinese: '老师，对不起。我每天晚上做作业做到十二点多。', pinyin: 'Lǎoshī, duìbuqǐ. Wǒ měitiān wǎnshàng zuò zuòyè zuò dào shí\'èr diǎn duō.', english: 'I\'m sorry, teacher. I do homework until past midnight every night.' },
+        { speaker: 'A', speakerName: '老师', chinese: '作业那么多吗？你一般有几科作业？', pinyin: 'Zuòyè nàme duō ma? Nǐ yìbān yǒu jǐ kē zuòyè?', english: 'Is there that much homework? How many subjects do you usually have homework for?' },
+        { speaker: 'B', speakerName: '小李', chinese: '每天至少有五六科。数学和英语最多，有时候还有补习班的作业。', pinyin: 'Měitiān zhìshǎo yǒu wǔ liù kē. Shùxué hé yīngyǔ zuì duō, yǒushíhou hái yǒu bǔxíbān de zuòyè.', english: 'At least five or six subjects every day. Maths and English have the most. Sometimes there\'s also tutoring homework.' },
+        { speaker: 'A', speakerName: '老师', chinese: '你还上补习班？你父母给你报的吗？', pinyin: 'Nǐ hái shàng bǔxíbān? Nǐ fùmǔ gěi nǐ bào de ma?', english: 'You also go to tutoring? Did your parents sign you up?' },
+        { speaker: 'B', speakerName: '小李', chinese: '是的。他们希望我考好大学。我周末也要上课，没有时间休息。', pinyin: 'Shì de. Tāmen xīwàng wǒ kǎo hǎo dàxué. Wǒ zhōumò yě yào shàngkè, méiyǒu shíjiān xiūxi.', english: 'Yes. They hope I can get into a good university. I have classes on weekends too, with no time to rest.' },
+        { speaker: 'A', speakerName: '老师', chinese: '我理解你的压力。但是睡眠很重要，你要跟父母好好谈谈。', pinyin: 'Wǒ lǐjiě nǐ de yālì. Dànshì shuìmián hěn zhòngyào, nǐ yào gēn fùmǔ hǎo hǎo tán tán.', english: 'I understand your pressure. But sleep is very important. You should talk to your parents properly.' },
+        { speaker: 'B', speakerName: '小李', chinese: '我会试试的。谢谢老师关心。', pinyin: 'Wǒ huì shì shì de. Xièxie lǎoshī guānxīn.', english: 'I\'ll try. Thank you for caring, teacher.' },
+      ],
+      vocabulary: [
+        { chinese: '打瞌睡', pinyin: 'dǎ kēshuì', english: 'doze off', partOfSpeech: 'verb' },
+        { chinese: '补习班', pinyin: 'bǔxíbān', english: 'tutoring class', partOfSpeech: 'noun' },
+        { chinese: '压力', pinyin: 'yālì', english: 'pressure', partOfSpeech: 'noun' },
+        { chinese: '睡眠', pinyin: 'shuìmián', english: 'sleep', partOfSpeech: 'noun' },
+        { chinese: '理解', pinyin: 'lǐjiě', english: 'understand', partOfSpeech: 'verb' },
+      ],
+      fullEnglish: 'Teacher: Xiao Li, you\'ve been dozing off in class recently. What\'s wrong?\nXiao Li: I\'m sorry, teacher. I do homework until past midnight every night.\nTeacher: Is there that much homework? How many subjects do you usually have homework for?\nXiao Li: At least five or six subjects every day. Maths and English have the most. Sometimes there\'s also tutoring homework.\nTeacher: You also go to tutoring? Did your parents sign you up?\nXiao Li: Yes. They hope I can get into a good university. I have classes on weekends too, with no time to rest.\nTeacher: I understand your pressure. But sleep is very important. You should talk to your parents properly.\nXiao Li: I\'ll try. Thank you for caring, teacher.',
+    },
+    questions: [
+      {
+        id: 'q-015-mc',
+        type: 'multiple_choice',
+        chineseQuestion: '小李为什么上课打瞌睡？',
+        englishInstruction: 'Why is Xiao Li dozing off in class?',
+        marks: 1,
+        options: ['生病了', '晚上做作业太晚', '玩游戏', '不喜欢上课'],
+        correctOptionIndex: 1,
+        modelAnswer: '因为每天晚上做作业做到十二点多',
+        sourceReference: '我每天晚上做作业做到十二点多',
+      },
+      {
+        id: 'q-015-three',
+        type: 'which_three',
+        chineseQuestion: '小李面临的压力有哪三个？',
+        englishInstruction: 'What are the three pressures Xiao Li faces?',
+        marks: 3,
+        markingPoints: [
+          { id: 'mp-15a', keyIdea: 'Too much homework from 5-6 subjects', englishMeaning: 'At least five or six subjects of homework every day', chineseKeywords: ['五六科', '作业'], marks: 1 },
+          { id: 'mp-15b', keyIdea: 'Tutoring classes on top of school', englishMeaning: 'Has tutoring class homework as well', chineseKeywords: ['补习班'], marks: 1 },
+          { id: 'mp-15c', keyIdea: 'No rest time, even on weekends', englishMeaning: 'Has classes on weekends with no time to rest', chineseKeywords: ['周末', '没有时间休息'], marks: 1 },
+        ],
+        modelAnswer: '每天五六科作业做到很晚；要上补习班；周末也要上课没有时间休息。',
+        sourceReference: '每天至少有五六科；还有补习班的作业；周末也要上课，没有时间休息',
+      },
+      {
+        id: 'q-015-why',
+        type: 'why_reason',
+        chineseQuestion: '小李的父母为什么要给他报补习班？',
+        englishInstruction: 'Why did Xiao Li\'s parents sign him up for tutoring?',
+        marks: 1,
+        markingPoints: [
+          { id: 'mp-15d', keyIdea: 'Want him to get into a good university', englishMeaning: 'They hope he can get into a good university', chineseKeywords: ['好大学'], marks: 1 },
+        ],
+        modelAnswer: '因为他们希望小李能考好大学。',
+        sourceReference: '他们希望我考好大学',
+      },
+      {
+        id: 'q-015-opinion',
+        type: 'opinion_attitude',
+        chineseQuestion: '老师对小李的情况有什么建议？',
+        englishInstruction: 'What advice does the teacher give about Xiao Li\'s situation?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-15e', keyIdea: 'Sleep is very important', englishMeaning: 'The teacher says sleep is very important', chineseKeywords: ['睡眠', '重要'], marks: 1 },
+          { id: 'mp-15f', keyIdea: 'Should talk to parents properly', englishMeaning: 'Should have a proper conversation with parents', chineseKeywords: ['跟父母', '谈谈'], marks: 1 },
+        ],
+        modelAnswer: '老师认为睡眠很重要，建议小李跟父母好好谈谈。',
+        sourceReference: '睡眠很重要，你要跟父母好好谈谈',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EXERCISE 16: Gap Year Discussion
+  // ============================================================
+  {
+    id: 'ex-016',
+    createdAt: '2026-09-05',
+    script: {
+      id: 'script-016',
+      title: '间隔年',
+      topic: 'future_aspirations',
+      difficulty: 'advanced',
+      dialogue: [
+        { speaker: 'A', speakerName: '小张', chinese: '小王，你高中毕业后打算做什么？', pinyin: 'Xiǎo Wáng, nǐ gāozhōng bìyè hòu dǎsuàn zuò shénme?', english: 'Xiao Wang, what do you plan to do after graduating from high school?' },
+        { speaker: 'B', speakerName: '小王', chinese: '我想先休息一年，就是所谓的"间隔年"。', pinyin: 'Wǒ xiǎng xiān xiūxi yī nián, jiùshì suǒwèi de "jiāngé nián".', english: 'I want to take a year off first, what\'s called a "gap year".' },
+        { speaker: 'A', speakerName: '小张', chinese: '间隔年？你想做什么呢？', pinyin: 'Jiāngé nián? Nǐ xiǎng zuò shénme ne?', english: 'A gap year? What do you want to do?' },
+        { speaker: 'B', speakerName: '小王', chinese: '我想去云南支教一年，教农村孩子英语。这样可以体验不同的生活，也能帮助别人。', pinyin: 'Wǒ xiǎng qù Yúnnán zhījiào yī nián, jiào nóngcūn háizi yīngyǔ. Zhèyàng kěyǐ tǐyàn bùtóng de shēnghuó, yě néng bāngzhù biérén.', english: 'I want to go to Yunnan to teach for a year, teaching English to rural children. This way I can experience a different life and help others.' },
+        { speaker: 'A', speakerName: '小张', chinese: '听起来很有意义。你父母同意吗？', pinyin: 'Tīng qǐlái hěn yǒu yìyì. Nǐ fùmǔ tóngyì ma?', english: 'That sounds meaningful. Do your parents agree?' },
+        { speaker: 'B', speakerName: '小王', chinese: '一开始他们不太同意，觉得应该直接上大学。但是后来他们理解了。', pinyin: 'Yì kāishǐ tāmen bú tài tóngyì, juédé yīnggāi zhíjiē shàng dàxué. Dànshì hòulái tāmen lǐjiě le.', english: 'At first they didn\'t really agree, thinking I should go straight to university. But later they understood.' },
+        { speaker: 'A', speakerName: '小张', chinese: '你觉得间隔年对你有什么好处？', pinyin: 'Nǐ juédé jiāngé nián duì nǐ yǒu shénme hǎochù?', english: 'What benefits do you think a gap year will have for you?' },
+        { speaker: 'B', speakerName: '小王', chinese: '可以让我更独立，更了解社会。而且支教经历对以后申请大学也有帮助。', pinyin: 'Kěyǐ ràng wǒ gèng dúlì, gèng liǎojiě shèhuì. Érqiě zhījiào jīnglì duì yǐhòu shēnqǐng dàxué yě yǒu bāngzhù.', english: 'It can make me more independent and understand society better. Also, the teaching experience will help with future university applications.' },
+      ],
+      vocabulary: [
+        { chinese: '间隔年', pinyin: 'jiāngé nián', english: 'gap year', partOfSpeech: 'noun' },
+        { chinese: '支教', pinyin: 'zhījiào', english: 'volunteer teaching', partOfSpeech: 'verb' },
+        { chinese: '农村', pinyin: 'nóngcūn', english: 'rural area / countryside', partOfSpeech: 'noun' },
+        { chinese: '体验', pinyin: 'tǐyàn', english: 'experience', partOfSpeech: 'verb' },
+        { chinese: '独立', pinyin: 'dúlì', english: 'independent', partOfSpeech: 'adjective' },
+        { chinese: '申请', pinyin: 'shēnqǐng', english: 'apply for', partOfSpeech: 'verb' },
+      ],
+      fullEnglish: 'Xiao Zhang: Xiao Wang, what do you plan to do after graduating from high school?\nXiao Wang: I want to take a year off first, what\'s called a "gap year".\nXiao Zhang: A gap year? What do you want to do?\nXiao Wang: I want to go to Yunnan to teach for a year, teaching English to rural children. This way I can experience a different life and help others.\nXiao Zhang: That sounds meaningful. Do your parents agree?\nXiao Wang: At first they didn\'t really agree, thinking I should go straight to university. But later they understood.\nXiao Zhang: What benefits do you think a gap year will have for you?\nXiao Wang: It can make me more independent and understand society better. Also, the teaching experience will help with future university applications.',
+    },
+    questions: [
+      {
+        id: 'q-016-mc',
+        type: 'multiple_choice',
+        chineseQuestion: '小王想在间隔年做什么？',
+        englishInstruction: 'What does Xiao Wang want to do during his gap year?',
+        marks: 1,
+        options: ['去旅游', '去云南支教', '去打工', '去留学'],
+        correctOptionIndex: 1,
+        modelAnswer: '去云南支教一年，教农村孩子英语',
+        sourceReference: '我想去云南支教一年，教农村孩子英语',
+      },
+      {
+        id: 'q-016-why',
+        type: 'why_reason',
+        chineseQuestion: '小王为什么想做间隔年？',
+        englishInstruction: 'Why does Xiao Wang want to take a gap year?',
+        marks: 3,
+        markingPoints: [
+          { id: 'mp-16a', keyIdea: 'Experience different life', englishMeaning: 'Can experience a different kind of life', chineseKeywords: ['体验', '不同的生活'], marks: 1 },
+          { id: 'mp-16b', keyIdea: 'Help others', englishMeaning: 'Can help other people through teaching', chineseKeywords: ['帮助别人'], marks: 1 },
+          { id: 'mp-16c', keyIdea: 'Benefits for university applications', englishMeaning: 'The teaching experience helps with university applications', chineseKeywords: ['申请大学', '帮助'], marks: 1 },
+        ],
+        modelAnswer: '他想体验不同的生活，帮助别人，而且支教经历对以后申请大学也有帮助。',
+        sourceReference: '体验不同的生活，也能帮助别人；支教经历对以后申请大学也有帮助',
+      },
+      {
+        id: 'q-016-attitude',
+        type: 'opinion_attitude',
+        chineseQuestion: '小王的父母对间隔年的态度有什么变化？',
+        englishInstruction: 'How did Xiao Wang\'s parents\' attitude toward the gap year change?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-16d', keyIdea: 'Initially disagreed', englishMeaning: 'At first they didn\'t agree, wanted him to go straight to university', chineseKeywords: ['不太同意', '直接上大学'], marks: 1 },
+          { id: 'mp-16e', keyIdea: 'Later understood', englishMeaning: 'Later they came to understand and accept his decision', chineseKeywords: ['后来', '理解'], marks: 1 },
+        ],
+        modelAnswer: '一开始他们不太同意，觉得应该直接上大学，但后来他们理解了。',
+        sourceReference: '一开始他们不太同意，觉得应该直接上大学。但是后来他们理解了',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EXERCISE 17: Part-time Job
+  // ============================================================
+  {
+    id: 'ex-017',
+    createdAt: '2026-09-05',
+    script: {
+      id: 'script-017',
+      title: '大学生打工',
+      topic: 'employment',
+      difficulty: 'beginner',
+      dialogue: [
+        { speaker: 'A', speakerName: '小明', chinese: '小红，你周末在咖啡店打工是吗？', pinyin: 'Xiǎo Hóng, nǐ zhōumò zài kāfēi diàn dǎgōng shì ma?', english: 'Xiao Hong, do you work part-time at a coffee shop on weekends?' },
+        { speaker: 'B', speakerName: '小红', chinese: '是的，我在星巴克打工已经三个月了。', pinyin: 'Shì de, wǒ zài xīngbākè dǎgōng yǐjīng sān gè yuè le.', english: 'Yes, I\'ve been working at Starbucks for three months.' },
+        { speaker: 'A', speakerName: '小明', chinese: '你觉得打工怎么样？辛苦吗？', pinyin: 'Nǐ juédé dǎgōng zěnme yàng? Xīnkǔ ma?', english: 'How do you feel about working part-time? Is it hard?' },
+        { speaker: 'B', speakerName: '小红', chinese: '有点累，但是很有收获。我学会了怎么做咖啡，也认识了很多朋友。', pinyin: 'Yǒudiǎn lèi, dànshì hěn yǒu shōuhuò. Wǒ xuéhuì le zěnme zuò kāfēi, yě rènshì le hěn duō péngyou.', english: 'A bit tiring, but very rewarding. I learned how to make coffee and made many friends.' },
+        { speaker: 'A', speakerName: '小明', chinese: '工资怎么样？够用吗？', pinyin: 'Gōngzī zěnme yàng? Gòu yòng ma?', english: 'How\'s the pay? Is it enough?' },
+        { speaker: 'B', speakerName: '小红', chinese: '每小时二十块，一个月大概能赚两千块。够我的生活费了。', pinyin: 'Měi xiǎoshí èr shí kuài, yī gè yuè dàgài néng zhuàn liǎng qiān kuài. Gòu wǒ de shēnghuó fèi le.', english: 'Twenty yuan per hour, about two thousand a month. It\'s enough for my living expenses.' },
+        { speaker: 'A', speakerName: '小明', chinese: '那你学习会不会受影响？', pinyin: 'Nà nǐ xuéxí huì bú huì shòu yǐngxiǎng?', english: 'Does it affect your studies?' },
+        { speaker: 'B', speakerName: '小红', chinese: '不会，我只在周末打工。平时好好学习，周末去赚钱。', pinyin: 'Bú huì, wǒ zhǐ zài zhōumò dǎgōng. Píngshí hǎo hǎo xuéxí, zhōumò qù zhuàn qián.', english: 'No, I only work on weekends. Study hard on weekdays, earn money on weekends.' },
+      ],
+      vocabulary: [
+        { chinese: '打工', pinyin: 'dǎgōng', english: 'work part-time', partOfSpeech: 'verb' },
+        { chinese: '收获', pinyin: 'shōuhuò', english: 'gains / rewards', partOfSpeech: 'noun' },
+        { chinese: '工资', pinyin: 'gōngzī', english: 'salary / wages', partOfSpeech: 'noun' },
+        { chinese: '生活费', pinyin: 'shēnghuó fèi', english: 'living expenses', partOfSpeech: 'noun' },
+        { chinese: '影响', pinyin: 'yǐngxiǎng', english: 'affect / influence', partOfSpeech: 'verb' },
+      ],
+      fullEnglish: 'Xiao Ming: Xiao Hong, do you work part-time at a coffee shop on weekends?\nXiao Hong: Yes, I\'ve been working at Starbucks for three months.\nXiao Ming: How do you feel about working part-time? Is it hard?\nXiao Hong: A bit tiring, but very rewarding. I learned how to make coffee and made many friends.\nXiao Ming: How\'s the pay? Is it enough?\nXiao Hong: Twenty yuan per hour, about two thousand a month. It\'s enough for my living expenses.\nXiao Ming: Does it affect your studies?\nXiao Hong: No, I only work on weekends. Study hard on weekdays, earn money on weekends.',
+    },
+    questions: [
+      {
+        id: 'q-017-mc',
+        type: 'multiple_choice',
+        chineseQuestion: '小红在哪里打工？',
+        englishInstruction: 'Where does Xiao Hong work part-time?',
+        marks: 1,
+        options: ['麦当劳', '肯德基', '星巴克', '便利店'],
+        correctOptionIndex: 2,
+        modelAnswer: '星巴克',
+        sourceReference: '我在星巴克打工',
+      },
+      {
+        id: 'q-017-adv',
+        type: 'advantages',
+        chineseQuestion: '小红觉得打工有什么好处？',
+        englishInstruction: 'What are the benefits of working part-time according to Xiao Hong?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-17a', keyIdea: 'Learned to make coffee', englishMeaning: 'Learned how to make coffee', chineseKeywords: ['学会', '做咖啡'], marks: 1 },
+          { id: 'mp-17b', keyIdea: 'Made many friends', englishMeaning: 'Met and got to know many friends', chineseKeywords: ['认识', '朋友'], marks: 1 },
+        ],
+        modelAnswer: '她学会了怎么做咖啡，也认识了很多朋友。',
+        sourceReference: '我学会了怎么做咖啡，也认识了很多朋友',
+      },
+      {
+        id: 'q-017-info',
+        type: 'specific_information',
+        chineseQuestion: '小红一个月大概能赚多少钱？',
+        englishInstruction: 'About how much does Xiao Hong earn per month?',
+        marks: 1,
+        markingPoints: [
+          { id: 'mp-17c', keyIdea: 'About 2000 yuan per month', englishMeaning: 'She earns about two thousand yuan a month', chineseKeywords: ['两千块'], marks: 1 },
+        ],
+        modelAnswer: '一个月大概能赚两千块。',
+        sourceReference: '一个月大概能赚两千块',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EXERCISE 18: Study Abroad Plans
+  // ============================================================
+  {
+    id: 'ex-018',
+    createdAt: '2026-09-05',
+    script: {
+      id: 'script-018',
+      title: '出国留学',
+      topic: 'study_abroad',
+      difficulty: 'intermediate',
+      dialogue: [
+        { speaker: 'A', speakerName: '妈妈', chinese: '小明，你真的想去澳大利亚留学吗？', pinyin: 'Xiǎo Míng, nǐ zhēn de xiǎng qù Àodàlìyà liúxué ma?', english: 'Xiao Ming, do you really want to study in Australia?' },
+        { speaker: 'B', speakerName: '小明', chinese: '是的，妈。澳大利亚的大学很好，而且我想提高我的英文水平。', pinyin: 'Shì de, mā. Àodàlìyà de dàxué hěn hǎo, érqiě wǒ xiǎng tígāo wǒ de yīngwén shuǐpíng.', english: 'Yes, Mum. Australian universities are very good, and I want to improve my English.' },
+        { speaker: 'A', speakerName: '妈妈', chinese: '但是留学很贵，你知道一年要多少钱吗？', pinyin: 'Dànshì liúxué hěn guì, nǐ zhīdào yī nián yào duōshǎo qián ma?', english: 'But studying abroad is expensive. Do you know how much it costs per year?' },
+        { speaker: 'B', speakerName: '小明', chinese: '我知道，学费加生活费大概要三十万一年。我可以申请奖学金，还可以打工。', pinyin: 'Wǒ zhīdào, xuéfèi jiā shēnghuó fèi dàgài yào sān shí wàn yī nián. Wǒ kěyǐ shēnqǐng jiǎngxuéjīn, hái kěyǐ dǎgōng.', english: 'I know. Tuition plus living expenses is about 300,000 yuan a year. I can apply for scholarships and also work part-time.' },
+        { speaker: 'A', speakerName: '妈妈', chinese: '你一个人在国外，我们不放心。', pinyin: 'Nǐ yī gè rén zài guówài, wǒmen bú fàngxīn.', english: 'You being alone abroad makes us worried.' },
+        { speaker: 'B', speakerName: '小明', chinese: '妈，我已经长大了。而且现在有网络，我们可以天天视频通话。', pinyin: 'Mā, wǒ yǐjīng zhǎng dà le. Érqiě xiànzài yǒu wǎngluò, wǒmen kěyǐ tiāntiān shìpín tōnghuà.', english: 'Mum, I\'ve already grown up. And with the internet, we can video call every day.' },
+        { speaker: 'A', speakerName: '妈妈', chinese: '好吧，那你好好准备雅思考试吧。', pinyin: 'Hǎo ba, nà nǐ hǎo hǎo zhǔnbèi Yǎsī kǎoshì ba.', english: 'Alright, then prepare well for your IELTS exam.' },
+        { speaker: 'B', speakerName: '小明', chinese: '谢谢妈！我一定好好努力。', pinyin: 'Xièxie mā! Wǒ yīdìng hǎo hǎo nǔlì.', english: 'Thank you Mum! I\'ll definitely work hard.' },
+      ],
+      vocabulary: [
+        { chinese: '留学', pinyin: 'liúxué', english: 'study abroad', partOfSpeech: 'verb' },
+        { chinese: '学费', pinyin: 'xuéfèi', english: 'tuition fees', partOfSpeech: 'noun' },
+        { chinese: '奖学金', pinyin: 'jiǎngxuéjīn', english: 'scholarship', partOfSpeech: 'noun' },
+        { chinese: '放心', pinyin: 'fàngxīn', english: 'feel relieved / not worried', partOfSpeech: 'verb' },
+        { chinese: '视频通话', pinyin: 'shìpín tōnghuà', english: 'video call', partOfSpeech: 'noun' },
+        { chinese: '雅思', pinyin: 'Yǎsī', english: 'IELTS', partOfSpeech: 'noun' },
+      ],
+      fullEnglish: 'Mum: Xiao Ming, do you really want to study in Australia?\nXiao Ming: Yes, Mum. Australian universities are very good, and I want to improve my English.\nMum: But studying abroad is expensive. Do you know how much it costs per year?\nXiao Ming: I know. Tuition plus living expenses is about 300,000 yuan a year. I can apply for scholarships and also work part-time.\nMum: You being alone abroad makes us worried.\nXiao Ming: Mum, I\'ve already grown up. And with the internet, we can video call every day.\nMum: Alright, then prepare well for your IELTS exam.\nXiao Ming: Thank you Mum! I\'ll definitely work hard.',
+    },
+    questions: [
+      {
+        id: 'q-018-mc',
+        type: 'multiple_choice',
+        chineseQuestion: '小明想去哪个国家留学？',
+        englishInstruction: 'Which country does Xiao Ming want to study in?',
+        marks: 1,
+        options: ['美国', '英国', '澳大利亚', '加拿大'],
+        correctOptionIndex: 2,
+        modelAnswer: '澳大利亚',
+        sourceReference: '澳大利亚的大学很好',
+      },
+      {
+        id: 'q-018-reasons',
+        type: 'why_reason',
+        chineseQuestion: '小明为什么想去澳大利亚留学？',
+        englishInstruction: 'Why does Xiao Ming want to study in Australia?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-18a', keyIdea: 'Australian universities are good', englishMeaning: 'Australia has good universities', chineseKeywords: ['大学', '很好'], marks: 1 },
+          { id: 'mp-18b', keyIdea: 'Want to improve English', englishMeaning: 'Wants to improve his English level', chineseKeywords: ['提高', '英文水平'], marks: 1 },
+        ],
+        modelAnswer: '因为澳大利亚的大学很好，而且他想提高英文水平。',
+        sourceReference: '澳大利亚的大学很好，而且我想提高我的英文水平',
+      },
+      {
+        id: 'q-018-challenges',
+        type: 'challenges',
+        chineseQuestion: '妈妈担心什么问题？',
+        englishInstruction: 'What concerns does Mum have?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-18c', keyIdea: 'Studying abroad is expensive', englishMeaning: 'The cost of studying abroad is high (about 300,000 yuan/year)', chineseKeywords: ['贵', '三十万'], marks: 1 },
+          { id: 'mp-18d', keyIdea: 'Worried about him being alone abroad', englishMeaning: 'Worried about him being alone in a foreign country', chineseKeywords: ['一个人', '国外', '不放心'], marks: 1 },
+        ],
+        modelAnswer: '妈妈担心留学费用很贵（一年大概三十万），而且担心小明一个人在国外不安全。',
+        sourceReference: '留学很贵；你一个人在国外，我们不放心',
+      },
+      {
+        id: 'q-018-solutions',
+        type: 'solutions',
+        chineseQuestion: '小明打算怎么解决留学的经济问题？',
+        englishInstruction: 'How does Xiao Ming plan to solve the financial problem of studying abroad?',
+        marks: 2,
+        markingPoints: [
+          { id: 'mp-18e', keyIdea: 'Apply for scholarships', englishMeaning: 'Plans to apply for scholarships', chineseKeywords: ['申请奖学金'], marks: 1 },
+          { id: 'mp-18f', keyIdea: 'Work part-time', englishMeaning: 'Plans to work part-time while studying', chineseKeywords: ['打工'], marks: 1 },
+        ],
+        modelAnswer: '他打算申请奖学金，还可以打工赚钱。',
+        sourceReference: '我可以申请奖学金，还可以打工',
+      },
+    ],
+  },
+];

@@ -1,0 +1,2 @@
+# Removed Netlify-style redirect to avoid Cloudflare infinite loop error
+# Original (problematic) rule: /* /index.html 200
