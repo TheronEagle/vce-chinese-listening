@@ -34,4 +34,8 @@ declare module 'lucide-react' {
   export const CircleAlert: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
   export const Square: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
   export const RefreshCw: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const MessageSquareWarning: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const MessageSquarePlus: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const Send: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const X: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
 }

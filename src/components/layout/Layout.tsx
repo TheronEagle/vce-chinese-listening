@@ -1,12 +1,14 @@
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Headphones, BarChart3, Settings } from 'lucide-react';
+import { FeedbackButton } from '../components/common/FeedbackButton';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 pb-20">{children}</main>
       <BottomNav />
+      <FeedbackButton />
     </div>
   );
 }

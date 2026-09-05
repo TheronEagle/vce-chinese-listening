@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, BookOpen, CircleAlert } from 'lucide-react';
 import { usePracticeStore } from '../stores/practiceStore';
 import { useStatsStore } from '../stores/statsStore';
+import { useFeedbackContext } from '../stores/feedbackContext';
 import { SAMPLE_EXERCISES } from '../data/sample-exercises';
 import { markAllAnswers } from '../services/aiMarking';
 import { AudioPlayer } from '../components/audio/AudioPlayer';
@@ -26,6 +27,8 @@ export function PracticePage() {
   } = usePracticeStore();
 
   const recordSession = useStatsStore(s => s.recordSession);
+  const setFeedbackContext = useFeedbackContext(s => s.setContext);
+  const clearFeedbackContext = useFeedbackContext(s => s.clearContext);
 
   // Load exercise
   useEffect(() => {
@@ -45,9 +48,18 @@ export function PracticePage() {
       setExercise(ex);
       setStoreExercise(ex);
       setLoadError(null);
+      // Set feedback context so the global FeedbackButton includes
+      // exerciseId + the currently-viewed questionId.
+      setFeedbackContext({
+        exerciseId: ex.id,
+        exerciseTitle: ex.script.title,
+      });
     }
 
-    return () => reset();
+    return () => {
+      reset();
+      clearFeedbackContext();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
