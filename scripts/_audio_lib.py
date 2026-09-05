@@ -44,6 +44,7 @@ DATA_FILES = [
     "src/data/exercises-batch3.ts",
     "src/data/exercises-batch4.ts",
     "src/data/exercises-career-school.ts",
+    "src/data/exercises-batch5.ts",
 ]
 
 

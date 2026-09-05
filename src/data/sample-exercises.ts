@@ -3,6 +3,7 @@ import { MORE_EXERCISES } from './more-exercises';
 import { EXERCISES_BATCH3 } from './exercises-batch3';
 import { EXERCISES_BATCH4 } from './exercises-batch4';
 import { EXERCISES_CAREER_SCHOOL } from './exercises-career-school';
+import { NEW_EXERCISES } from './exercises-batch5';
 
 export const SAMPLE_EXERCISES: Exercise[] = [
   // ============================================================
@@ -407,4 +408,5 @@ export const SAMPLE_EXERCISES: Exercise[] = [
   ...EXERCISES_BATCH3,
   ...EXERCISES_BATCH4,
   ...EXERCISES_CAREER_SCHOOL,
+  ...NEW_EXERCISES,
 ];
