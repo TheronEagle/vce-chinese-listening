@@ -3,7 +3,8 @@ import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
 
 interface ListeningNotesProps {
   exerciseId: string;
-  visible?: boolean;
+  /** Optional override for the title shown (e.g. "Your Notes" during review). */
+  title?: string;
 }
 
 const STORAGE_KEY = 'vce-listening-notes';
@@ -32,7 +33,7 @@ function saveNotes(exerciseId: string, notes: string): void {
   } catch {}
 }
 
-export function ListeningNotes({ exerciseId, visible = true }: ListeningNotesProps) {
+export function ListeningNotes({ exerciseId, title = '📝 听力笔记 Listening Notes' }: ListeningNotesProps) {
   const [notes, setNotes] = useState(() => loadNotes(exerciseId));
   const [expanded, setExpanded] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -44,7 +45,7 @@ export function ListeningNotes({ exerciseId, visible = true }: ListeningNotesPro
 
   const handleChange = (value: string) => {
     setNotes(value);
-    // Debounced save
+    // Debounced save to avoid hammering localStorage.
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(() => {
       saveNotes(exerciseId, value);
@@ -52,28 +53,30 @@ export function ListeningNotes({ exerciseId, visible = true }: ListeningNotesPro
   };
 
   const handleClear = () => {
+    if (typeof confirm !== 'undefined' && !confirm('Clear your notes for this exercise?')) {
+      return;
+    }
     setNotes('');
     saveNotes(exerciseId, '');
     textareaRef.current?.focus();
   };
 
-  if (!visible) return null;
-
   return (
-    <div className="bg-amber-50 rounded-xl border border-amber-200 p-4">
-      <div className="flex items-center justify-between mb-2">
+    <div className="bg-amber-50 rounded-xl border border-amber-200 p-3 sm:p-4">
+      <div className="flex items-center justify-between mb-2 gap-2">
         <button
           onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-2 text-sm font-medium text-amber-800 hover:text-amber-900"
+          className="flex items-center gap-2 text-sm font-medium text-amber-800 hover:text-amber-900 focus:outline-none focus:underline"
+          aria-expanded={expanded}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.5 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><path d="M14 3v6h6"/></svg>
-          📝 听力笔记 Listening Notes
+          {title}
           {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
         {notes && expanded && (
           <button
             onClick={handleClear}
-            className="text-xs text-amber-600 hover:text-red-600 flex items-center gap-1"
+            className="text-xs text-amber-600 hover:text-red-600 flex items-center gap-1 focus:outline-none focus:underline"
+            aria-label="Clear notes"
           >
             <Trash2 size={12} />
             清除
@@ -83,7 +86,7 @@ export function ListeningNotes({ exerciseId, visible = true }: ListeningNotesPro
 
       {expanded && (
         <>
-          <p className="text-xs text-amber-600 mb-2">
+          <p className="text-xs text-amber-700 mb-2">
             边听边记关键词，帮助你回答问题。Write key words while listening.
           </p>
           <textarea
@@ -91,10 +94,11 @@ export function ListeningNotes({ exerciseId, visible = true }: ListeningNotesPro
             value={notes}
             onChange={(e) => handleChange(e.target.value)}
             placeholder="在这里记笔记... Take notes here..."
-            className="w-full h-28 p-3 text-sm border border-amber-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none chinese-text"
+            aria-label="Listening notes"
+            className="w-full h-28 sm:h-32 p-2.5 sm:p-3 text-sm border border-amber-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 resize-y chinese-text"
           />
-          <p className="text-xs text-amber-500 mt-1 text-right">
-            {notes.length} 字
+          <p className="text-xs text-amber-600 mt-1 text-right">
+            {notes.length} 字 · 自动保存
           </p>
         </>
       )}

@@ -172,6 +172,7 @@ export function PracticePage() {
           exercise={exercise}
           answers={answers}
           onNewExercise={() => navigate('/')}
+          audioSpeed={audioSpeed}
         />
       ) : (
         <>
@@ -186,12 +187,9 @@ export function PracticePage() {
             />
           </div>
 
-          {/* Listening Notes */}
+          {/* Listening Notes — always visible so student can review/compare */}
           <div className="mb-4">
-            <ListeningNotes
-              exerciseId={exercise.id}
-              visible={!showingResults}
-            />
+            <ListeningNotes exerciseId={exercise.id} />
           </div>
 
           {/* Transcript lock reminder */}
@@ -313,10 +311,12 @@ function ResultsView({
   exercise,
   answers,
   onNewExercise,
+  audioSpeed,
 }: {
   exercise: Exercise;
   answers: any[];
   onNewExercise: () => void;
+  audioSpeed: AudioSpeed;
 }) {
   const results = markAllAnswers(exercise.questions, answers);
   const totalMarks = exercise.questions.reduce((sum, q) => sum + q.marks, 0);
@@ -510,7 +510,7 @@ function ResultsView({
             ✓ Unlocked
           </span>
         </div>
-        <Transcript script={exercise.script} />
+        <Transcript script={exercise.script} exerciseId={exercise.id} audioSpeed={audioSpeed} />
       </div>
     </div>
   );
