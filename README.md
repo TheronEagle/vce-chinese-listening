@@ -2,7 +2,7 @@
 
 An adaptive listening practice web application designed for VCE Chinese Second Language students.
 
-**Live:** https://github.com/TheronEagle/vce-chinese-listening
+**Live:** https://vce-chineselistening.ruttkay-gpt.workers.dev (Cloudflare Pages, auto-deploy from `main`)
 
 ## Features
 
@@ -17,12 +17,13 @@ An adaptive listening practice web application designed for VCE Chinese Second L
 
 ## Tech Stack
 
-- **Frontend:** React 19 + TypeScript + Vite
-- **Styling:** Tailwind CSS v4
-- **State:** Zustand (with localStorage persistence for stats)
-- **Audio:** Web Speech API (free, browser-native TTS — no backend required)
+- **Frontend:** React 19 + TypeScript + Vite 8
+- **Styling:** Tailwind CSS v4 (via `@tailwindcss/vite`)
+- **State:** Zustand 5 (with localStorage persistence for stats)
+- **Audio:** **Pre-generated edge-tts MP3 files** (Microsoft neural voices XiaoxiaoNeural + YunxiNeural) — 163 files committed to git. Falls back to Web Speech API at runtime if an MP3 fails to load.
 - **Routing:** React Router v7
 - **Icons:** Lucide React
+- **Deployment:** Cloudflare Pages (auto-deploy from GitHub `main`)
 
 ## Quick Start
 
@@ -31,7 +32,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173
+Open http://localhost:5173.
 
 ## Build
 
@@ -43,72 +44,37 @@ Output goes to `dist/` — a static SPA ready to deploy anywhere.
 
 ---
 
-## Deploy to Cloudflare Pages
+## Deployment
 
-This app is a **static SPA** — the simplest deployment is **Cloudflare Pages** (not Workers).
+**Current production deployment:** Cloudflare Pages, auto-deploying from the `main` branch of
+`github.com/TheronEagle/vce-chinese-listening`.
 
-### Option A: Cloudflare Dashboard (recommended)
+Live URL: **https://vce-chineselistening.ruttkay-gpt.workers.dev**
 
-1. Push your repo to GitHub
-2. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-3. Select the `vce-chinese-listening` repo
-4. Configure:
-   - **Production branch:** `main`
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Node.js version:** set environment variable `NODE_VERSION=22`
-5. Click **Save and Deploy**
-6. Your app will be live at `https://vce-chinese-listening.pages.dev`
+The repository's `wrangler.toml` points at `dist/`:
+```toml
+name = "vce-chineselistening"
+compatibility_date = "2024-01-01"
 
-### Option B: Wrangler CLI
+[assets]
+directory = "./dist"
+```
+
+To deploy manually (not normally needed — Cloudflare auto-builds on push):
 
 ```bash
-# Install wrangler
 npm install -g wrangler
-
-# Login to Cloudflare
 wrangler login
-
-# Deploy to Cloudflare Pages
-npx wrangler pages deploy dist --project-name=vce-chinese-listening
+npm run build
+npx wrangler pages deploy dist --project-name=vce-chineselistening
 ```
-
-### Option C: GitHub Actions CI/CD
-
-Create `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy to Cloudflare Pages
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm ci
-      - run: npm run build
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy dist --project-name=vce-chinese-listening
-```
-
-Then add `CLOUDFLARE_API_TOKEN` as a GitHub secret (create token at Cloudflare → My Profile → API Tokens → Create Token → Edit Cloudflare Pages permission).
 
 ### Custom Domain
 
-After deploying:
-1. Go to Cloudflare Dashboard → Pages → your project → **Custom domains**
-2. Add your domain (e.g., `listening.yourschool.com`)
-3. Cloudflare handles SSL automatically
+After deploying, in the Cloudflare Dashboard → Pages → `vce-chineselistening` → Custom domains,
+add your domain. Cloudflare handles SSL automatically.
 
-### Why Pages, not Workers?
+### Why Cloudflare Pages, not Workers?
 
 - **Workers** = serverless compute (for APIs, SSR, dynamic backends)
 - **Pages** = static site hosting (for SPAs, no server needed)
@@ -121,52 +87,71 @@ After deploying:
 
 ```
 src/
-├── types/index.ts          # All TypeScript type definitions
+├── types/index.ts                  # All TypeScript type definitions
 ├── data/
-│   ├── topics.ts           # VCE category definitions, helpers
-│   ├── sample-exercises.ts # Exercise data (4 exercises)
-│   └── more-exercises.ts   # Additional exercises (3 more)
+│   ├── topics.ts                   # VCE category definitions, helpers
+│   ├── sample-exercises.ts         # SAMPLE_EXERCISES aggregator (18 total)
+│   ├── more-exercises.ts           # ex-005, ex-006, ex-007
+│   ├── exercises-batch3.ts         # ex-008, ex-009, ex-010
+│   ├── exercises-batch4.ts         # ex-011, ex-012, ex-013
+│   └── exercises-career-school.ts  # ex-014, ex-015, ex-016, ex-017, ex-018
 ├── stores/
-│   ├── practiceStore.ts    # Current session state (Zustand)
-│   └── statsStore.ts       # Persistent stats (Zustand + localStorage)
+│   ├── practiceStore.ts            # Current session state (Zustand)
+│   └── statsStore.ts               # Persistent stats (Zustand + localStorage)
 ├── services/
-│   ├── aiMarking.ts        # Answer grading engine
-│   ├── adaptive.ts         # Weakness detection & recommendations
-│   └── audio.ts            # Web Speech API wrapper
+│   ├── aiMarking.ts                # Answer grading engine
+│   ├── adaptive.ts                 # Weakness detection & recommendations
+│   └── audio.ts                    # MP3 player + Web Speech API fallback
 ├── components/
 │   ├── audio/AudioPlayer.tsx
 │   ├── questions/QuestionCard.tsx
 │   ├── common/Transcript.tsx
+│   ├── common/ListeningNotes.tsx
 │   └── layout/Layout.tsx
 └── pages/
-    ├── HomePage.tsx         # Dashboard, recommendations, exercise list
-    ├── PracticePage.tsx     # Main practice loop
-    ├── CustomPracticePage.tsx # Filter & select exercises
-    ├── StatsPage.tsx        # Performance analytics
-    └── SettingsPage.tsx     # Reset data, about
+    ├── HomePage.tsx                # Dashboard, recommendations, exercise list
+    ├── PracticePage.tsx            # Main practice loop
+    ├── CustomPracticePage.tsx      # Filter & select exercises
+    ├── StatsPage.tsx               # Performance analytics
+    └── SettingsPage.tsx            # Reset data, about
+
+public/
+├── audio/
+│   ├── ex-001/...ex-018/           # 18 exercises × ~9 MP3 files
+│   └── (163 MP3 files, 8.4 MB, committed to git)
+├── favicon.svg
+└── icons.svg
+
+scripts/
+├── generate-audio.py               # Original audio generator (ex-001..ex-013)
+├── generate-audio-new.py           # Additional generator (ex-014..ex-018)
+└── verify-audio.ts                 # Alignment verifier (data lines vs audio files)
 ```
 
 ## Key Files for Continuity
 
 | File | Purpose |
 |------|---------|
-| `PROJECT_STATUS.md` | Current phase, completed work, next tasks, blockers |
-| `TODO.md` | Prioritised task list |
+| `PROJECT_STATUS.md` | Current phase, completed work, **critical bugs**, next tasks, blockers |
+| `TODO.md` | Prioritised task list (P0..P4) |
 | `CHANGELOG.md` | Version history |
+| `AGENTS.md` | Instructions for future AI coding agents |
 | `README.md` | This file — architecture, deployment, everything |
+
+---
 
 ## Adding New Exercises
 
-Each exercise follows this structure in `src/data/more-exercises.ts`:
+Each exercise follows this structure in `src/data/<batch>.ts`:
 
 ```typescript
 {
-  id: 'ex-008',
-  createdAt: '2026-09-04',
+  id: 'ex-XXX',
+  createdAt: 'YYYY-MM-DD',
   script: {
-    id: 'script-008',
-    title: '标题',
-    topic: 'travel',           // VCE category
+    id: 'script-XXX',
+    title: '中文标题',
+    topic: 'travel',           // VCECategory from types/index.ts
     difficulty: 'intermediate', // beginner | intermediate | advanced
     dialogue: [
       { speaker: 'A', speakerName: '名字', chinese: '中文', pinyin: 'pīnyīn', english: 'English' },
@@ -179,16 +164,17 @@ Each exercise follows this structure in `src/data/more-exercises.ts`:
   },
   questions: [
     {
-      id: 'q-008-mc',
-      type: 'multiple_choice',  // QuestionType
+      id: 'q-XXX-mc',
+      type: 'multiple_choice',  // QuestionType from types/index.ts
       chineseQuestion: '问题？',
       englishInstruction: 'Question?',
       marks: 1,
       options: ['A', 'B', 'C', 'D'],
       correctOptionIndex: 1,
+      sourceReference: 'relevant dialogue line(s)',
     },
     {
-      id: 'q-008-why',
+      id: 'q-XXX-why',
       type: 'why_reason',
       chineseQuestion: '为什么？',
       englishInstruction: 'Why?',
@@ -197,10 +183,13 @@ Each exercise follows this structure in `src/data/more-exercises.ts`:
         { id: 'mp-x', keyIdea: 'key idea', englishMeaning: 'English meaning', chineseKeywords: ['关键词'], marks: 1 },
       ],
       modelAnswer: '参考答案',
+      sourceReference: 'relevant dialogue line(s)',
     },
   ],
 }
 ```
+
+**After adding the exercise, also generate audio** (see "Generating Audio" below) and verify with `scripts/verify-audio.ts`.
 
 ## VCE Topics (18 categories)
 
@@ -238,7 +227,9 @@ Marking Points:
 3. Students will like him, he'll be happy (1 mark)
 ```
 
-The system checks for Chinese keywords in the student's answer. Each matched marking point awards its allocated marks. Feedback shows which points were missed.
+The system checks for Chinese keywords in the student's answer. Each matched marking point
+awards its allocated marks. Feedback shows which points were missed. See
+`src/services/aiMarking.ts`.
 
 ## Adaptive Engine
 
@@ -249,4 +240,28 @@ Tracks per-student:
 - Audio speed performance
 - Streak tracking
 
-Generates recommendations that deliberately target weaknesses.
+Generates recommendations that deliberately target weaknesses. See
+`src/services/adaptive.ts`.
+
+---
+
+## Generating Audio
+
+This project uses **edge-tts** (Microsoft Edge neural voices) to pre-generate Mandarin audio:
+
+```bash
+pip install edge-tts
+python3 scripts/generate-audio.py        # generates ex-001..ex-013
+python3 scripts/generate-audio-new.py    # generates ex-014..ex-018
+```
+
+Voice mapping:
+- Speaker A → `zh-CN-XiaoxiaoNeural` (female)
+- Speaker B → `zh-CN-YunxiNeural` (male)
+- Narrator → `zh-CN-XiaoxiaoNeural`
+
+After generating audio, verify alignment:
+
+```bash
+npx tsx scripts/verify-audio.ts   # checks every dialogue line has a matching MP3
+```
