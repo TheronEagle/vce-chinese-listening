@@ -31,4 +31,5 @@ declare module 'lucide-react' {
   export const Info: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
   export const Filter: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
   export const SlidersHorizontal: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+  export const CircleAlert: FC<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
 }

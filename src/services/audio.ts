@@ -140,10 +140,46 @@ export function playFullDialogue(
 
 /**
  * Check if pre-generated audio exists for an exercise.
+ *
+ * BUG-002 fix: actually probe the audio files instead of returning a
+ * hard-coded true. We do a HEAD request for the full audio file, which
+ * is the cheapest check; if it 404s we fall back to the Web Speech API
+ * for the entire exercise.
+ *
+ * The result is cached per exercise id for the lifetime of the page.
  */
-export function hasAudioFile(exerciseId: string): boolean {
-  // We assume audio files exist for all exercises since we generated them
-  return true;
+const existenceCache: Map<string, Promise<boolean>> = new Map();
+
+export function hasAudioFile(exerciseId: string): Promise<boolean> {
+  const cached = existenceCache.get(exerciseId);
+  if (cached) return cached;
+
+  const probe = new Promise<boolean>((resolve) => {
+    try {
+      const audio = new Audio();
+      audio.preload = 'metadata';
+      let settled = false;
+      const finish = (ok: boolean) => {
+        if (settled) return;
+        settled = true;
+        audio.removeEventListener('loadedmetadata', onOk);
+        audio.removeEventListener('error', onErr);
+        resolve(ok);
+      };
+      const onOk = () => finish(true);
+      const onErr = () => finish(false);
+      audio.addEventListener('loadedmetadata', onOk);
+      audio.addEventListener('error', onErr);
+      audio.src = getFullAudioPath(exerciseId);
+      // Timeout fallback — if the network is silent, treat as missing.
+      setTimeout(() => finish(false), 4000);
+    } catch {
+      resolve(false);
+    }
+  });
+
+  existenceCache.set(exerciseId, probe);
+  return probe;
 }
 
 // ========== Web Speech API Fallback ==========

@@ -23,7 +23,7 @@ interface PracticeState {
   setAudioSpeed: (speed: AudioSpeed) => void;
   setCurrentQuestionIndex: (index: number) => void;
   submitAnswer: (questionId: string, answer: number | string, timeSpentMs?: number) => void;
-  markAnswer: (questionId: string, isCorrect: boolean, marksAwarded: number, feedback: string) => void;
+  markAnswer: (questionId: string, isCorrect: boolean, marksAwarded: number, marksTotal: number, feedback: string) => void;
   setIsPlaying: (playing: boolean) => void;
   setCurrentTime: (time: number) => void;
   setDuration: (duration: number) => void;
@@ -77,11 +77,11 @@ export const usePracticeStore = create<PracticeState>((set, get) => ({
     }
   },
 
-  markAnswer: (questionId, isCorrect, marksAwarded, feedback) => {
+  markAnswer: (questionId, isCorrect, marksAwarded, marksTotal, feedback) => {
     const { answers } = get();
     const updated = answers.map(a =>
       a.questionId === questionId
-        ? { ...a, isCorrect, marksAwarded, feedback }
+        ? { ...a, isCorrect, marksAwarded, marksTotal, feedback }
         : a
     );
     set({ answers: updated });

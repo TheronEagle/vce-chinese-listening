@@ -113,13 +113,25 @@ export const useStatsStore = create<StatsState>()(
           ts.recentAccuracy = recentTotal > 0 ? (recentAwarded / recentTotal) * 100 : 0;
           s.topicStats = { ...s.topicStats, [topic]: ts };
 
-          // Question type stats
+          // Question type stats — BUG-003 fix:
+          // Iterate each ANSWER, adding only THIS answer's marks to its
+          // specific question type's bucket. Previous behaviour added the
+          // whole session's marks/total to every type, making per-type
+          // accuracy equal session accuracy (misleading).
           const newQStats = { ...s.questionTypeStats };
-          for (const qt of questionTypes) {
+          for (let i = 0; i < session.answers.length; i++) {
+            const ans = session.answers[i];
+            // questionTypes is an array of types aligned with the exercise's
+            // question order; answers are also in that order. Use i as the
+            // alignment index, with safe fallback.
+            const qt = questionTypes[i] ?? questionTypes[0];
+            if (!qt) continue;
             const qs = { ...newQStats[qt] };
+            const answerMarks = ans.marksAwarded ?? 0;
+            const answerTotal = ans.marksTotal ?? 0;
             qs.questionsAnswered += 1;
-            qs.totalMarks += total;
-            qs.marksAwarded += marks;
+            qs.totalMarks += answerTotal;
+            qs.marksAwarded += answerMarks;
             qs.accuracy = qs.totalMarks > 0 ? (qs.marksAwarded / qs.totalMarks) * 100 : 0;
             newQStats[qt] = qs;
           }
