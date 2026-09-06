@@ -49,7 +49,7 @@ Output goes to `dist/` — a static SPA ready to deploy anywhere.
 **Current production deployment:** Cloudflare Pages, auto-deploying from the `main` branch of
 `github.com/TheronEagle/vce-chinese-listening`.
 
-Live URL: **/https://vce-chineselistening.theroneagle.workers.dev/**
+Live URL: **https://vce-chineselistening.theroneagle.workers.dev/**
 
 The repository's `wrangler.toml` points at `dist/`:
 ```toml
